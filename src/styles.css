@@ -6,7 +6,8 @@ body {
 }
 
 body {
-  background-image: url(https://lh4.googleusercontent.com/-XplyTa1Za-I/VMSgIyAYkHI/AAAAAAAADxM/oL-rD6VP4ts/w1184-h666/Android-Lollipop-wallpapers-Google-Now-Wallpaper-2.png);
+  /* background-image: url(https://lh4.googleusercontent.com/-XplyTa1Za-I/VMSgIyAYkHI/AAAAAAAADxM/oL-rD6VP4ts/w1184-h666/Android-Lollipop-wallpapers-Google-Now-Wallpaper-2.png); */
+
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -108,4 +109,9 @@ body {
 
 .login-wrapper .mat-form-field-appearance-legacy .mat-form-field-infix {
   padding: 0.8375em 0;
+}
+
+.mat-drawer-container {
+  background-image: url(assets/folder-146940_1280.png);
+  color: rgba(0,0,0,.87);
 }

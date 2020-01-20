@@ -19,7 +19,10 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 /* Components */
 import { LogInComponent } from './components/log-in/log-in.component';
 import { RegisterComponent } from './components/register/register.component';
-
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { AdminComponent } from './components/admin/admin.component';
+import { TableComponent } from './components/table/table.component';
+import {MatMenuModule} from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,10 @@ import { RegisterComponent } from './components/register/register.component';
     LogInComponent,
     RegisterComponent,
     RegisterComponent,
-    LogInComponent
+    LogInComponent,
+    NavbarComponent,
+    AdminComponent,
+    TableComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +42,8 @@ import { RegisterComponent } from './components/register/register.component';
     AngularMaterialModule,
     ReactiveFormsModule,
     FormsModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent],
