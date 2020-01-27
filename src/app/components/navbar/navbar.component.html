@@ -1,44 +1,72 @@
 <mat-grid-list cols="4" rowHeight="100%">
 <mat-sidenav-container fullscreen >
-
-  <mat-sidenav #sidenav mode="side" opened position="start" *ngIf="isLoggedIn | async">
-   <h1 style="text-align:center;color:rgba(0,0,0,0.5)">DAS  <img src="../../../assets/newicon.jpg">  </h1>
-    <mat-divider></mat-divider>
-    <mat-nav-list>
-      <h3 matSubheader><mat-icon>home</mat-icon> Dashboard </h3>
-
+  <mat-sidenav #sidenav mode="side" opened position="start" *ngIf="isLoggedIn | async" [@onSideNavChange]="sideNavState ? 'close':'open'" >
+    <h1 style="text-align:center;color:rgba(0,0,0,0.5)" *ngIf="sideNavState; else elseblock"> B  </h1>
+   <ng-template #elseblock><h1 style="text-align:center;color:rgba(0,0,0,0.5)"> <img src="../../../assets/bellurbislogo.png">  </h1></ng-template>
+    <mat-divider ></mat-divider>
+    <!-- <mat-nav-list>
+      <h3 matSubheader><mat-icon>home</mat-icon>
+        <span [@animateText]="linkText ? 'hide' : 'show'">Dashboard</span> </h3>
           <a mat-list-item routerLink="/admin" >
-              <mat-icon>assignment_ind</mat-icon> <span class="nav-caption"> Admin</span>
-          </a>
-          <!-- <a mat-list-item routerLink="/owner">
-              <mat-icon>assignment_ind</mat-icon> <span class="nav-caption">Owner Actions</span>
-          </a>
-          <a mat-list-item routerLink="#" >
-              <mat-icon>account_balance</mat-icon><span class="nav-caption">Account Actions</span>
-          </a> -->
-        </mat-nav-list>
+
+              <mat-icon style="padding-right:5px;">assignment_ind</mat-icon>
+              <span [@animateText]="linkText ? 'hide' : 'show'">Admin </span>
+            </a>
+        </mat-nav-list> -->
+
+        <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+          <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+            <button mat-icon-button  routerLink="/userForm">
+            <mat-icon style="padding-right:10px;">{{node.icon}}</mat-icon>{{node.name}}
+          </button>
+          </mat-tree-node>
+
+          <mat-tree-node  class ="treenode" *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding >
+            <button *ngIf="!node.active; else elseblock" mat-icon-button>
+              <mat-icon style="padding-right:10px;">{{node.icon}}</mat-icon>{{node.name}}
+            </button>
+            <ng-template #elseblock>
+            <button  class="btn" mat-icon-button matTreeNodeToggle
+            [attr.aria-label]="'toggle ' + node.name">
+            <mat-icon style="padding-right:10px;">{{node.icon}}</mat-icon>{{node.name}}
+      <mat-icon >
+        {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+      </mat-icon>
+    </button>
+  </ng-template>
+    </mat-tree-node>
+        </mat-tree>
+        <span class="spacer"></span>
+        <div [ngClass]='appropriateClass' style="padding: 10px 10px;">
+          <button mat-icon-button class="togglebutton" (click)="toggleSidenav()">
+            <mat-icon *ngIf="sideNavState">arrow_left</mat-icon>
+            <mat-icon *ngIf="!sideNavState">arrow_right</mat-icon>
+          </button>
+        </div>
   </mat-sidenav>
-  <mat-sidenav-content>
-    <mat-toolbar color="primary" *ngIf="isLoggedIn | async">
-      <button mat-icon-button (click)="toggleSidenav()">
-        <mat-icon>menu</mat-icon>
-      </button>
+  <mat-sidenav-content #myclass class="myCSSclass"  >
+    <div>
+    <mat-toolbar  style="width:auto" color="primary" *ngIf="isLoggedIn | async" [@onMainContentChange]="sideNavState ? 'close':'open'"  >
+      <!-- <button mat-mini-fab (click)="toggleSidenav()" color="warn" style="margin: 10px;">
+        <mat-icon aria-label="Menu">menu</mat-icon>
+      </button> -->
+      <span>DOCUMENT APPROVEL SYSTEM</span>
       <span class="toolbar-spacer"></span>
     <button mat-button [matMenuTriggerFor]="menu">
         <img class="avatar"  src="../../../assets/img_avatar.png">
       </button>
-<mat-menu  #menu="matMenu">
+<mat-menu  #menu="matMenu" >
   <button class="mat-menu-item" mat-menu-item="" (click)="logout()" role="menuitem" tabindex="0"
   aria-disabled="false"><mat-icon class="mat-icon notranslate material-icons mat-icon-no-color"
    role="img" aria-hidden="true">exit_to_app</mat-icon> Sign Out
    <div class="mat-menu-ripple mat-ripple" matripple=""></div></button>
 </mat-menu>
     </mat-toolbar>
-    <div class="main-content">
+  </div>
+    <div  class="main-content" [@onMainContentChange]="sideNavState ? 'close':'open'">
       <div class="page-content">
         <div class="page-content-wrap">
           <router-outlet></router-outlet>
-          <div style="height: 60px;"></div>
         </div>
       </div>
     </div>

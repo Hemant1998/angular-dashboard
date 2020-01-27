@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataServiceService {
-
-  constructor() {
+  constructor(private http: HttpClient) {
 
     localStorage.setItem('username',"admin@123");
     localStorage.setItem('password',"admin123");
   }
+  api_url:string="http://localhost:8080";
   isLoginSubject = new BehaviorSubject<boolean>(false);
   checkValidation(uname:string,pass:string){
     if(uname==localStorage.getItem('username') && pass==localStorage.getItem('password'))
@@ -28,5 +29,8 @@ export class DataServiceService {
     this.isLoginSubject.next(false);
     return this.isLoginSubject.asObservable();
     }
+  }
+ public getData():Observable<any> {
+    return this.http.get(this.api_url + '/users', {responseType: 'text'});
   }
 }

@@ -9,6 +9,8 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularMaterialModule } from './angular-material.module';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import {MatCardModule} from '@angular/material/card';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 /* FormsModule */
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -23,7 +25,10 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { TableComponent } from './components/table/table.component';
 import {MatMenuModule} from '@angular/material/menu';
-
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { MatSortModule } from '@angular/material/sort';
+import {MatTreeModule} from '@angular/material/tree';
+import { UserFormComponent } from './components/user-form/user-form.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +38,8 @@ import {MatMenuModule} from '@angular/material/menu';
     LogInComponent,
     NavbarComponent,
     AdminComponent,
-    TableComponent
+    TableComponent,
+    UserFormComponent
   ],
   imports: [
     BrowserModule,
@@ -43,9 +49,14 @@ import {MatMenuModule} from '@angular/material/menu';
     ReactiveFormsModule,
     FormsModule,
     FlexLayoutModule,
-    MatMenuModule
+    MatMenuModule,
+    HttpClientModule,
+    MatSortModule,
+    MatTreeModule,
+    MatCardModule,
+    MatGridListModule
   ],
-  providers: [],
+  providers: [HttpClientModule],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

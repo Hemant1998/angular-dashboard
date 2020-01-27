@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angular-material-login-template": {
+    "DAS": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/angular-material-login-template",
+            "outputPath": "dist/DAS",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -60,18 +60,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "angular-material-login-template:build"
+            "browserTarget": "DAS:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "angular-material-login-template:build:production"
+              "browserTarget": "DAS:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "angular-material-login-template:build"
+            "browserTarget": "DAS:build"
           }
         },
         "test": {
@@ -109,16 +109,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "angular-material-login-template:serve"
+            "devServerTarget": "DAS:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "angular-material-login-template:serve:production"
+              "devServerTarget": "DAS:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "angular-material-login-template"
+  "defaultProject": "DAS"
 }

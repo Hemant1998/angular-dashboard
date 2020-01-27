@@ -1,28 +1,52 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener, ElementRef } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject, of as observableOf } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
-import { DataServiceService } from 'src/app/data-service.service';
+import { DataServiceService } from 'src/app/services/data-service.service';
+import { animateText, onSideNavChange, onMainContentChange, onMainContentChangec } from '../animation/animations';
+import { AuthguardServiceService } from 'src/app/services/authguard-service.service';
+import { FlatTreeControl } from '@angular/cdk/tree';
+import { MatTreeFlattener, MatTreeFlatDataSource } from '@angular/material/tree';
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  styleUrls: ['./navbar.component.css'],
+  animations: [onSideNavChange, animateText,onMainContentChange,onMainContentChangec]
 })
 export class NavbarComponent implements OnInit {
   profileName: Observable<string>;
   url: Observable<any>;
   isLoggedIn:Observable<boolean>;
+  public sideNavState: boolean = false;
+  public linkText: boolean = false;
+  public maincontent: boolean = false;
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
       shareReplay()
     );
 
+    appropriateClass:string = '';
+
+    @HostListener('window:resize', ['$event'])
+    getScreenHeight(event?){
+      //console.log(window.innerHeight);
+      if(window.innerHeight<=412){
+        this.appropriateClass = 'bottomRelative';
+      }else{
+        this.appropriateClass = 'bottomStick';
+      }
+    }
   constructor(private breakpointObserver: BreakpointObserver,
     private _router: Router, private sanitizer: DomSanitizer,private routes:Router,
-    private service:DataServiceService) { }
+    private service:DataServiceService,
+    private authService:AuthguardServiceService) {
+      this.getScreenHeight();
+      this.dataSource.data = TREE_DATA;
+    }
 
   ngOnInit(): void {
     this.isLoggedIn=this.service.isLogged();
@@ -30,10 +54,18 @@ export class NavbarComponent implements OnInit {
     this._router.navigate(['/admin']);
   }
 
+  @ViewChild('myclass', {static: false}) el:ElementRef;
   @ViewChild('sidenav',null) sidenav:any;
    toggleSidenav()
   {
-    this.sidenav.toggle();
+    this.sideNavState = !this.sideNavState
+    // this.sidenav.toggle();
+    setTimeout(() => {
+      this.linkText = this.sideNavState;
+      this.maincontent=this.sideNavState;
+    }, 200)
+    this.authService.sideNavState$.next(this.sideNavState)
+
   }
 
   logout() {
@@ -46,5 +78,97 @@ export class NavbarComponent implements OnInit {
   transform(base64Image) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(base64Image);
   }
+  private _transformer = (node: FoodNode, level: number) => {
+    return {
+      expandable: !!node.children && node.children.length > 0,
+      name: node.name,
+      icon:node.icon,
+      active:node.active,
+      level: level,
+    };
+  }
 
+  treeControl = new FlatTreeControl<ExampleFlatNode>(
+      node => node.level, node => node.expandable);
+
+  treeFlattener = new MatTreeFlattener(
+      this._transformer, node => node.level, node => node.expandable, node => node.children);
+
+  dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+
+
+
+  hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
+
+}
+
+interface FoodNode {
+  name: string;
+  active?: boolean;
+  icon?: string;
+  children?: FoodNode[];
+}
+
+const TREE_DATA: FoodNode[] = [
+  {
+    name: 'Users',
+    icon: 'assignment_ind',
+    active:true,
+    children: [
+      {name: 'List Users',icon: 'list'},
+      {name: 'Create New Users',icon: 'create'},
+      {name: 'Assign Roles',icon :'assignment_turned_in'}
+    ]
+  }, {
+    name: 'Roles',
+    icon: 'people',
+    active:true,
+    children: [
+      {name: 'List Role', icon: 'list'},
+      {name: 'Create New Role',icon: 'create'}
+    ]
+  },
+  {
+    name: 'Document Type',
+    icon: 'assignment',
+    active:true,
+    children: [
+      {name: 'List Document Type', icon: 'list'},
+      {name: 'New Document Type',icon: 'create'}
+    ]
+  },
+  {
+    name: 'Document Template',
+    icon: 'check_box_outline_blank',
+    active: true,
+    children: [
+      {name: 'List Doc Template', icon: 'list'},
+      {name: 'New Doc Template',icon: 'create'}
+    ]
+  },
+  {
+    name: 'Dashboard',
+    active:false,
+    icon: 'home',
+    children: [
+      {name: 'List Doc Template', icon: 'list'},
+    ]
+  },
+  {
+    name: 'Documents',
+    active: false,
+    icon: 'work',
+    children: [
+      {name: 'List Doc Template', icon: 'list'},
+    ]
+  },
+];
+
+/** Flat node with expandable and level information */
+interface ExampleFlatNode {
+  expandable: boolean;
+  name: string;
+  icon:string;
+  active:boolean;
+  level: number;
 }
