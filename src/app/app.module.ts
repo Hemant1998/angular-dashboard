@@ -31,6 +31,7 @@ import { MatSortModule } from '@angular/material/sort';
 import {MatTreeModule} from '@angular/material/tree';
 import { UserFormComponent } from './components/user-form/user-form.component';
 import { DocumentFormComponent } from './components/document-form/document-form.component';
+import { DocumentFormDialogComponent } from './components/document-form-dialog/document-form-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,7 +43,8 @@ import { DocumentFormComponent } from './components/document-form/document-form.
     AdminComponent,
     TableComponent,
     UserFormComponent,
-    DocumentFormComponent
+    DocumentFormComponent,
+    DocumentFormDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -60,6 +62,7 @@ import { DocumentFormComponent } from './components/document-form/document-form.
     MatGridListModule,
     MatSelectModule
   ],
+  entryComponents: [DocumentFormDialogComponent],
   providers: [HttpClientModule],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

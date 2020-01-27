@@ -23,10 +23,11 @@ export class UserFormComponent implements OnInit {
   createForm() {
     let emailregex: RegExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     this.formGroup = this.formBuilder.group({
-      'user_name': [null, [Validators.required, Validators.pattern(emailregex)], this.checkInUseEmail],
+      'user_name': [null, Validators.required],
+      // 'user_name': [null, [Validators.required, Validators.pattern(emailregex)], this.checkInUseEmail],
       'password': [null, Validators.required],
-      're_password': [null, [Validators.required, this.checkPassword]],
-      'first_name': [null, [Validators.required, Validators.minLength(5), Validators.maxLength(10)]],
+      're_password': [null, Validators.required],
+      'first_name': [null, Validators.required],
       'last_name': '',
       'email':'',
       'contact':'',
