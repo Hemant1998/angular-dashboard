@@ -1,24 +1,25 @@
 import { BrowserModule } from '@angular/platform-browser';
 
-/* Routing */
+/ Routing /
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 
-/* Angular Material */
+/ Angular Material /
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularMaterialModule } from './angular-material.module';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import {MatCardModule} from '@angular/material/card';
 import {MatGridListModule} from '@angular/material/grid-list';
+import {MatSelectModule} from '@angular/material/select';
 
-/* FormsModule */
+/ FormsModule /
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-/* Angular Flex Layout */
+/ Angular Flex Layout /
 import { FlexLayoutModule } from "@angular/flex-layout";
 
-/* Components */
+/ Components /
 import { LogInComponent } from './components/log-in/log-in.component';
 import { RegisterComponent } from './components/register/register.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -29,6 +30,7 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { MatSortModule } from '@angular/material/sort';
 import {MatTreeModule} from '@angular/material/tree';
 import { UserFormComponent } from './components/user-form/user-form.component';
+import { DocumentFormComponent } from './components/document-form/document-form.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +41,8 @@ import { UserFormComponent } from './components/user-form/user-form.component';
     NavbarComponent,
     AdminComponent,
     TableComponent,
-    UserFormComponent
+    UserFormComponent,
+    DocumentFormComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +57,8 @@ import { UserFormComponent } from './components/user-form/user-form.component';
     MatSortModule,
     MatTreeModule,
     MatCardModule,
-    MatGridListModule
+    MatGridListModule,
+    MatSelectModule
   ],
   providers: [HttpClientModule],
   bootstrap: [AppComponent],

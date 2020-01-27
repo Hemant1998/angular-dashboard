@@ -50,8 +50,8 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoggedIn=this.service.isLogged();
-    if(this.isLoggedIn)
-    this._router.navigate(['/admin']);
+    // if(this.isLoggedIn)
+    // this._router.navigate(['/admin']);
   }
 
   @ViewChild('myclass', {static: false}) el:ElementRef;
@@ -83,6 +83,7 @@ export class NavbarComponent implements OnInit {
       expandable: !!node.children && node.children.length > 0,
       name: node.name,
       icon:node.icon,
+      navigate_url:node.navigate_url,
       active:node.active,
       level: level,
     };
@@ -104,6 +105,7 @@ export class NavbarComponent implements OnInit {
 
 interface FoodNode {
   name: string;
+  navigate_url:string;
   active?: boolean;
   icon?: string;
   children?: FoodNode[];
@@ -113,53 +115,59 @@ const TREE_DATA: FoodNode[] = [
   {
     name: 'Users',
     icon: 'assignment_ind',
+    navigate_url: '',
     active:true,
     children: [
-      {name: 'List Users',icon: 'list'},
-      {name: 'Create New Users',icon: 'create'},
-      {name: 'Assign Roles',icon :'assignment_turned_in'}
+      {name: 'List Users',navigate_url: '/admin',icon: 'list'},
+      {name: 'Create New Users',navigate_url: '/userForm',icon: 'create'},
+      {name: 'Assign Roles',navigate_url: '#',icon :'assignment_turned_in'}
     ]
   }, {
     name: 'Roles',
     icon: 'people',
+    navigate_url: '#',
     active:true,
     children: [
-      {name: 'List Role', icon: 'list'},
-      {name: 'Create New Role',icon: 'create'}
+      {name: 'List Role',navigate_url: '#', icon: 'list'},
+      {name: 'Create New Role',navigate_url: '#',icon: 'create'}
     ]
   },
   {
     name: 'Document Type',
     icon: 'assignment',
+    navigate_url: '#',
     active:true,
     children: [
-      {name: 'List Document Type', icon: 'list'},
-      {name: 'New Document Type',icon: 'create'}
+      {name: 'List Document Type',navigate_url: '#', icon: 'list'},
+      {name: 'New Document Type',navigate_url: 'document-form',icon: 'create'}
     ]
   },
   {
     name: 'Document Template',
+    navigate_url: '#',
     icon: 'check_box_outline_blank',
     active: true,
     children: [
-      {name: 'List Doc Template', icon: 'list'},
-      {name: 'New Doc Template',icon: 'create'}
+      {name: 'List Doc Template',navigate_url: '#', icon: 'list'},
+      {name: 'New Doc Template',navigate_url: '#',icon: 'create'}
     ]
   },
   {
     name: 'Dashboard',
     active:false,
+    navigate_url: '#',
     icon: 'home',
     children: [
-      {name: 'List Doc Template', icon: 'list'},
+      {name: 'List Doc Template', navigate_url: '#',icon: 'list'},
     ]
   },
   {
     name: 'Documents',
     active: false,
+    navigate_url: '#',
     icon: 'work',
     children: [
-      {name: 'List Doc Template', icon: 'list'},
+      {name: 'List Doc Template',navigate_url: '#', icon: 'list'},
     ]
   },
 ];
@@ -168,6 +176,7 @@ const TREE_DATA: FoodNode[] = [
 interface ExampleFlatNode {
   expandable: boolean;
   name: string;
+  navigate_url:string;
   icon:string;
   active:boolean;
   level: number;

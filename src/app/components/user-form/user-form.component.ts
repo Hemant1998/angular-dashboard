@@ -12,7 +12,7 @@ export class UserFormComponent implements OnInit {
   formGroup: FormGroup;
   titleAlert: string = 'This field is required';
   post: any = '';
-
+  role: string[]=['Admin','Author']
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
@@ -23,11 +23,14 @@ export class UserFormComponent implements OnInit {
   createForm() {
     let emailregex: RegExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     this.formGroup = this.formBuilder.group({
-      'email': [null, [Validators.required, Validators.pattern(emailregex)], this.checkInUseEmail],
-      'name': [null, Validators.required],
-      'password': [null, [Validators.required, this.checkPassword]],
-      'description': [null, [Validators.required, Validators.minLength(5), Validators.maxLength(10)]],
-      'validate': ''
+      'user_name': [null, [Validators.required, Validators.pattern(emailregex)], this.checkInUseEmail],
+      'password': [null, Validators.required],
+      're_password': [null, [Validators.required, this.checkPassword]],
+      'first_name': [null, [Validators.required, Validators.minLength(5), Validators.maxLength(10)]],
+      'last_name': '',
+      'email':'',
+      'contact':'',
+      'user_role':''
     });
   }
 

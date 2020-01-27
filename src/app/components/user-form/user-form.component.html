@@ -1,38 +1,78 @@
+<div class="heading"><h3>Create New User</h3></div>
 <mat-card clas="usr-mat-card">
 <div class="container" *ngIf="!post; else forminfo" novalidate>
+
+
   <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)" class="form">
-
-    <mat-form-field class="form-element">
-      <input matInput placeholder="Emailaddress" formControlName="email">
-      <mat-error *ngIf="!formGroup.controls['email'].valid && formGroup.controls['email'].touched">
+<div>
+    <mat-form-field class="form-element" appearance="outline">
+      <mat-label>Username</mat-label>
+      <input matInput placeholder="Username" formControlName="user_name">
+       <!-- <mat-error *ngIf="!formGroup.controls['email'].valid && formGroup.controls['email'].touched">
         {{ getErrorEmail() }}
-      </mat-error>
+      </mat-error> -->
     </mat-form-field>
-
-    <mat-form-field class="form-element">
-      <input matInput placeholder="Name" formControlName="name">
-      <mat-error *ngIf="!name.valid && name.touched">
-        {{ titleAlert }}
-      </mat-error>
-    </mat-form-field>
-
-    <mat-form-field class="form-element">
-      <textarea matInput placeholder="Description" matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="5" formControlName="description"></textarea>
-      <mat-error *ngIf="!formGroup.controls['description'].valid && formGroup.controls['description'].touched">
-        Required field, must be between 5 and 10 characters.
-      </mat-error>
-    </mat-form-field>
-
-    <mat-form-field class="form-element">
+  </div>
+    <mat-form-field class="form-element" appearance="outline">
+      <mat-label>Password</mat-label>
       <input matInput placeholder="Password" formControlName="password">
-      <mat-hint>Choose a password of at least eight characters, one uppercase letter and one number</mat-hint>
-      <mat-error *ngIf="!formGroup.controls['password'].valid && formGroup.controls['password'].touched">
+      <!-- <mat-error *ngIf="!formGroup.controls['password'].valid && formGroup.controls['password'].touched">
         {{ getErrorPassword() }}
-      </mat-error>
+      </mat-error> -->
     </mat-form-field>
 
-    <div class="form-element">
-      <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!formGroup.valid">Submit Form</button>
+    <mat-form-field class="form-element" appearance="outline">
+      <mat-label>Re Enter Password</mat-label>
+      <input matInput placeholder="Re Enter Password"  formControlName="re_password">
+      <!-- <mat-error *ngIf="!formGroup.controls['password'].valid && formGroup.controls['password'].touched">
+        {{ getErrorPassword() }}
+      </mat-error> -->
+    </mat-form-field>
+
+    <mat-form-field class="form-element" appearance="outline">
+      <mat-label>First Name</mat-label>
+      <input matInput placeholder="First Name" formControlName="first_name">
+
+    </mat-form-field>
+
+    <mat-form-field class="form-element" appearance="outline">
+      <mat-label>Last Name</mat-label>
+      <input matInput placeholder="Last Name" formControlName="last_name">
+
+    </mat-form-field>
+
+    <mat-form-field class="form-element" appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput placeholder="Email" formControlName="email">
+      <!-- <mat-error *ngIf="!formGroup.controls['email'].valid && formGroup.controls['email'].touched">
+        {{ getErrorEmail() }}
+      </mat-error> -->
+    </mat-form-field>
+
+    <mat-form-field class="form-element" appearance="outline">
+      <mat-label>Contact</mat-label>
+      <input matInput placeholder="Contact" formControlName="contact">
+
+    </mat-form-field>
+
+<mat-form-field class="form-element" appearance="outline">
+  <mat-label>User Role</mat-label>
+  <mat-select formControlName="user_role">
+    <mat-option *ngFor="let roles of role" [value]="roles">
+      {{roles}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+
+
+
+    <div class="form-save">
+      <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!formGroup.valid">Save</button>
+    </div>
+
+    <div class="form-cancel">
+      <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!formGroup.valid">Cancel</button>
     </div>
 
   </form>

@@ -13,12 +13,11 @@
               <span [@animateText]="linkText ? 'hide' : 'show'">Admin </span>
             </a>
         </mat-nav-list> -->
-
         <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
           <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
-            <button mat-icon-button  routerLink="/userForm">
+            <a mat-icon-button  routerLink="{{node.navigate_url}}" routerLinkActive="active">
             <mat-icon style="padding-right:10px;">{{node.icon}}</mat-icon>{{node.name}}
-          </button>
+          </a>
           </mat-tree-node>
 
           <mat-tree-node  class ="treenode" *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding >

@@ -1,0 +1,31 @@
+<div class="heading"><h3>Create New User</h3></div>
+<mat-card clas="usr-mat-card">
+<div class="container"  novalidate>
+
+
+  <form [formGroup]="formGroup"  class="form">
+
+    <mat-form-field class="form-element" appearance="outline">
+      <mat-label>Document Type</mat-label>
+      <input matInput placeholder="Document Type" formControlName="doc_type">
+
+    </mat-form-field>
+
+    <mat-form-field class="form-element" appearance="outline">
+      <mat-label>Discription</mat-label>
+      <input matInput placeholder="Discription" formControlName="discription">
+
+    </mat-form-field>
+
+    <div class="form-save">
+      <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!formGroup.valid">Save</button>
+    </div>
+
+    <div class="form-cancel">
+      <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!formGroup.valid">Cancel</button>
+    </div>
+
+  </form>
+</div>
+</mat-card>
+
