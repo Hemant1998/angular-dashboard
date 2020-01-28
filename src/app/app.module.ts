@@ -12,7 +12,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import {MatCardModule} from '@angular/material/card';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatSelectModule} from '@angular/material/select';
-
+import {MatDialogModule} from '@angular/material/dialog';
 / FormsModule /
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -60,7 +60,8 @@ import { DocumentFormDialogComponent } from './components/document-form-dialog/d
     MatTreeModule,
     MatCardModule,
     MatGridListModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDialogModule
   ],
   entryComponents: [DocumentFormDialogComponent],
   providers: [HttpClientModule],

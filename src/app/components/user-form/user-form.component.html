@@ -1,12 +1,12 @@
 <div class="heading"><h3>Create New User</h3></div>
-<mat-card clas="usr-mat-card">
-<div class="container" *ngIf="!post; else forminfo" novalidate>
+<mat-card >
+<div class="container" >
 
 
-  <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)" class="form">
+  <form [formGroup]="formGroup"  class="form">
 <div>
     <mat-form-field class="form-element" appearance="outline">
-      <mat-label>Username</mat-label>
+      <mat-label >Username</mat-label>
       <input matInput placeholder="Username" formControlName="user_name">
        <!-- <mat-error *ngIf="!formGroup.controls['email'].valid && formGroup.controls['email'].touched">
         {{ getErrorEmail() }}
@@ -78,8 +78,4 @@
   </form>
 </div>
 </mat-card>
-<ng-template #forminfo>
-  <div class="container">
-    {{ post | json }}
-  </div>
-</ng-template>
+

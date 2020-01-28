@@ -1,32 +1,50 @@
-<mat-card clas="usr-mat-card">
+<mat-card >
   <div class="container"  novalidate>
 
 
     <form [formGroup]="formGroup"  class="form">
       <mat-form-field class="form-element" appearance="outline">
-        <mat-label>Document Type</mat-label>
-        <input matInput placeholder="Document Type" formControlName="doc_type">
+        <mat-label>Field Id</mat-label>
+        <input matInput placeholder="Field Id" formControlName="field_id">
          <!-- <mat-error *ngIf="!formGroup.controls['email'].valid && formGroup.controls['email'].touched">
           {{ getErrorEmail() }}
         </mat-error> -->
       </mat-form-field>
       <mat-form-field class="form-element" appearance="outline">
-        <mat-label>Discription</mat-label>
-        <textarea matInput placeholder="Discription" formControlName="discription"></textarea>
+        <mat-label>Field Label</mat-label>
+        <input matInput placeholder="Field Label" formControlName="field_label">
         <!-- <mat-error *ngIf="!formGroup.controls['password'].valid && formGroup.controls['password'].touched">
           {{ getErrorPassword() }}
         </mat-error> -->
       </mat-form-field>
 
+      <mat-form-field class="form-element" appearance="outline">
+        <mat-label>Field Sequence</mat-label>
+        <input matInput placeholder="Field Sequence" formControlName="field_sequence">
+        <!-- <mat-error *ngIf="!formGroup.controls['password'].valid && formGroup.controls['password'].touched">
+          {{ getErrorPassword() }}
+        </mat-error> -->
+      </mat-form-field>
+
+      <mat-form-field class="form-element" appearance="outline">
+        <mat-label>Field Type</mat-label>
+        <mat-select formControlName="field_type">
+          <mat-option *ngFor="let type of field_type" [value]="type">
+            {{type}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
 
       <div class="form-save">
-        <button mat-raised-button color="primary" type="submit" class="button" >Save</button>
+        <button mat-raised-button color="primary" (click)="dialogsubmit()"
+        [mat-dialog-close]="formGroup" class="button" >Save</button>
       </div>
-
       <div class="form-cancel">
-        <button mat-raised-button color="primary" type="submit" class="button" >Cancel</button>
+        <button mat-raised-button color="primary"  class="button" (click)="this.dialogRef.close()">Cancel</button>
       </div>
 
     </form>
   </div>
   </mat-card>
+

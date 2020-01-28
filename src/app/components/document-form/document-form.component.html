@@ -1,5 +1,5 @@
 <div class="heading"><h3>Create Document Type</h3></div>
-<mat-card clas="usr-mat-card">
+<mat-card >
 <div class="container"  novalidate>
 
 
@@ -19,10 +19,10 @@
       </mat-error> -->
     </mat-form-field>
 
-    <div class="form-save">
-      <button mat-raised-button color="primary" (click)="opendialog()" class="button" >Add Field</button>
+    <div class="form-addfield">
+      <button mat-raised-button color="primary" (click)="opendialog(null)" class="button" >Add Field</button>
     </div>
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="ELEMENT_DATA.length>0">
 
       <!--- Note that these columns can be defined in any order.
             The actual rendered columns are set as a property on the row definition" -->
@@ -49,6 +49,18 @@
       <ng-container matColumnDef="field_type">
         <th mat-header-cell *matHeaderCellDef> Field Type </th>
         <td mat-cell *matCellDef="let element"> {{element.field_type}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef> Action</th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button >
+            <mat-icon (click)="opendialog(element)">edit</mat-icon>
+          </button>
+          <button mat-icon-button (click)="deleteElement(element.field_id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

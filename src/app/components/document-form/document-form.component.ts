@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { DocumentFormDialogComponent } from '../document-form-dialog/document-form-dialog.component';
+import { BehaviorSubject } from 'rxjs';
 @Component({
   selector: 'app-document-form',
   templateUrl: './document-form.component.html',
@@ -14,8 +15,13 @@ export class DocumentFormComponent implements OnInit {
   titleAlert: string = 'This field is required';
   post: any = '';
   role: string[]=['Admin','Author']
-  displayedColumns: string[] = ['field_id', 'field_label', 'field_sequence', 'field_type'];
-  dataSource = ELEMENT_DATA;
+  displayedColumns: string[] = ['field_id', 'field_label', 'field_sequence', 'field_type','action'];
+  ELEMENT_DATA: Doc_data[] = [
+
+  ];
+  dataSource = new BehaviorSubject([]);
+  flag:Boolean;
+  //dataSource = this.ELEMENT_DATA;
   constructor(private formBuilder: FormBuilder,public dialog: MatDialog) { }
 
   ngOnInit() {
@@ -30,15 +36,40 @@ export class DocumentFormComponent implements OnInit {
     });
   }
 
-  opendialog(){
+  opendialog(element){
     const dialogRef = this.dialog.open(DocumentFormDialogComponent, {
       width: '800px',
-      height: '400px'
+      height: '400px',
+      data:{content:this.ELEMENT_DATA,
+        content_with_id:element
+      }
     });
-
+    this.flag=false;
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      console.log(result);
+      for (let i in this.ELEMENT_DATA) {
+              if(this.ELEMENT_DATA[i].field_id == result.value.field_id)
+              this.flag=true;
+      }
+      if(!this.flag)
+      this.ELEMENT_DATA.push(result.value);
+      else
+      for (let i in this.ELEMENT_DATA) {
+        if (this.ELEMENT_DATA[i].field_id == result.value.field_id) {
+          this.ELEMENT_DATA[i].field_label = result.value.field_label;
+          this.ELEMENT_DATA[i].field_sequence = result.value.field_sequence;
+          this.ELEMENT_DATA[i].field_type = result.value.field_type;
+        }
+      }
+      this.dataSource.next(this.ELEMENT_DATA);
     });
+  }
+  deleteElement(fieldId:any){
+    this.ELEMENT_DATA.forEach(ele=>{
+      if ( ele.field_id == fieldId)
+      this.ELEMENT_DATA.splice(this.ELEMENT_DATA.indexOf(ele), 1);
+    })
+      this.dataSource.next(this.ELEMENT_DATA);
   }
 }
 
@@ -47,8 +78,7 @@ export interface Doc_data {
   field_label: string;
   field_sequence: number;
   field_type: string;
+  action:any;
 }
 
-const ELEMENT_DATA: Doc_data[] = [
-  {field_id: '1', field_label: 'invoice', field_sequence: 1, field_type: 'boolean'}
-];
+
