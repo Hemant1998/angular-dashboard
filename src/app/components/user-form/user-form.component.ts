@@ -26,11 +26,11 @@ export class UserFormComponent implements OnInit {
       'user_name': [null, Validators.required],
       // 'user_name': [null, [Validators.required, Validators.pattern(emailregex)], this.checkInUseEmail],
       'password': [null, Validators.required],
-      're_password': [null, Validators.required],
+      're_password':  [null, [Validators.required, this.checkPassword]],
       'first_name': [null, Validators.required],
       'last_name': '',
-      'email':'',
-      'contact':'',
+      'email':[null, [Validators.required, Validators.pattern(emailregex)]],
+      'contact':[null, Validators.required],
       'user_role':''
     });
   }
@@ -53,11 +53,11 @@ export class UserFormComponent implements OnInit {
   //   return this.formGroup.get('name') as FormControl
   // }
 
-  // checkPassword(control) {
-  //   let enteredPassword = control.value
-  //   let passwordCheck = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/;
-  //   return (!passwordCheck.test(enteredPassword) && enteredPassword) ? { 'requirements': true } : null;
-  // }
+  checkPassword(control) {
+    let enteredPassword = control.value
+    let passwordCheck = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/;
+    return (!passwordCheck.test(enteredPassword) && enteredPassword) ? { 'requirements': true } : null;
+  }
 
   // checkInUseEmail(control) {
   //   let db = ['tony@gmail.com'];
@@ -70,16 +70,16 @@ export class UserFormComponent implements OnInit {
   //   })
   // }
 
-  // getErrorEmail() {
-  //   return this.formGroup.get('email').hasError('required') ? 'Field is required' :
-  //     this.formGroup.get('email').hasError('pattern') ? 'Not a valid emailaddress' :
-  //       this.formGroup.get('email').hasError('alreadyInUse') ? 'This emailaddress is already in use' : '';
-  // }
+  getErrorEmail() {
+    return this.formGroup.get('email').hasError('required') ? 'Field is required' :
+      this.formGroup.get('email').hasError('pattern') ? 'Not a valid emailaddress' :
+        this.formGroup.get('email').hasError('alreadyInUse') ? 'This emailaddress is already in use' : '';
+  }
 
-  // getErrorPassword() {
-  //   return this.formGroup.get('password').hasError('required') ? 'Field is required (at least eight characters, one uppercase letter and one number)' :
-  //     this.formGroup.get('password').hasError('requirements') ? 'Password needs to be at least eight characters, one uppercase letter and one number' : '';
-  // }
+  getErrorPassword() {
+    return this.formGroup.get('password').hasError('required') ? 'Field is required (at least eight characters, one uppercase letter and one number)' :
+      this.formGroup.get('password').hasError('requirements') ? 'Password needs to be at least eight characters, one uppercase letter and one number' : '';
+  }
 
 
 

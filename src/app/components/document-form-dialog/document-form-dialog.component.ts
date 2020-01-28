@@ -14,15 +14,18 @@ export class DocumentFormDialogComponent implements OnInit {
   titleAlert: string = 'This field is required';
   post: any = '';
   field_type: string[]=['Integer','String','Float','Boolean']
+  dataElements:any;
+  error_msg:string;
   constructor(private formBuilder: FormBuilder, public dialogRef: MatDialogRef<DocumentFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData) {
      }
 
   ngOnInit() {
-
-
+    console.log(this.data['content'].length);
+    this.dataElements=this.data['content'];
+    console.log( this.dataElements);
     this.createForm();
-    if(this.data['content_with_id'] !=null)
+    if(this.data['content_with_id']!=null)
     this.getData();
     // this.formGroup.controls['field_id'].setValue(this.data['content'].field_id);
   }
@@ -32,7 +35,7 @@ export class DocumentFormDialogComponent implements OnInit {
       field_id: [null, Validators.required],
       field_label: [null, Validators.required],
       field_sequence: [null, Validators.required],
-      field_type: [null, Validators.required]
+      field_type:''
 
     });
   }
@@ -48,7 +51,38 @@ getData(){
   this.formGroup.controls['field_sequence'].setValue(this.data['content_with_id'].field_sequence);
   this.formGroup.controls['field_type'].setValue(this.data['content_with_id'].field_type);
 }
+// checkFieldId(control){
+//   console.log(control.value);
+//   if(this.dataElements.length>0){
+//   for (let i in this.dataElements) {
+//     console.log(this.dataElements[i].field_id == this.formGroup.get('field_id').value);
+//     return  this.dataElements[i].field_id == this.formGroup.get('field_id').value
+//      ? {'validate_field':false}:null;
 
+// }
+//   }
+// }
+//   validateFieldId(){
+
+//     return this.formGroup.get('field_id').hasError('required') ? 'Field is required ':
+//     this.formGroup.get('field_id').hasError('validate_field')  ? 'Duplicate Field Id not allowed':'';
+//   }
+
+focusOutFunction(){
+ if(this.dataElements.length>0){
+      for (let i in this.dataElements) {
+         console.log(this.dataElements[i].field_id == this.formGroup.get('field_id').value);
+        if(this.dataElements[i].field_id == this.formGroup.get('field_id').value){
+          console.log("inside if");
+         this.error_msg="duplicate";
+         break;
+        }
+    }
+      }
+}
+focusinFunction(){
+  this.error_msg="";
+}
 }
 export interface DialogData {
   animal: string;

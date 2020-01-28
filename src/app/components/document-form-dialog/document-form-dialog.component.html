@@ -5,11 +5,13 @@
     <form [formGroup]="formGroup"  class="form">
       <mat-form-field class="form-element" appearance="outline">
         <mat-label>Field Id</mat-label>
-        <input matInput placeholder="Field Id" formControlName="field_id">
-         <!-- <mat-error *ngIf="!formGroup.controls['email'].valid && formGroup.controls['email'].touched">
-          {{ getErrorEmail() }}
+        <input matInput placeholder="Field Id" formControlName="field_id" (focus)="focusinFunction()" (focusout)="focusOutFunction()">
+           <!-- <mat-error *ngIf="!formGroup.controls['field_id'].valid && formGroup.controls['field_id'].touched">
+          Field is required
         </mat-error> -->
+
       </mat-form-field>
+      {{error_msg}}
       <mat-form-field class="form-element" appearance="outline">
         <mat-label>Field Label</mat-label>
         <input matInput placeholder="Field Label" formControlName="field_label">
@@ -38,7 +40,7 @@
 
       <div class="form-save">
         <button mat-raised-button color="primary" (click)="dialogsubmit()"
-        [mat-dialog-close]="formGroup" class="button" >Save</button>
+        [mat-dialog-close]="formGroup" class="button" [disabled]="!formGroup.valid">Save</button>
       </div>
       <div class="form-cancel">
         <button mat-raised-button color="primary"  class="button" (click)="this.dialogRef.close()">Cancel</button>
