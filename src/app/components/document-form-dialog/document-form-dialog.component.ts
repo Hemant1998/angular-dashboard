@@ -1,7 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { DocumentFormComponent } from '../document-form/document-form.component';
+import { DataServiceService } from 'src/app/services/data-service.service';
+import { checkFieldId } from 'src/app/validators/custom-validator';
 
 @Component({
   selector: 'app-document-form-dialog',
@@ -16,15 +18,16 @@ export class DocumentFormDialogComponent implements OnInit {
   field_type: string[]=['Integer','String','Float','Boolean']
   dataElements:any;
   error_msg:string;
+  status=false;
   constructor(private formBuilder: FormBuilder, public dialogRef: MatDialogRef<DocumentFormComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData) {
-     }
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,private dataService:DataServiceService) {
+    }
 
   ngOnInit() {
-    console.log(this.data['content'].length);
+
+
     this.dataElements=this.data['content'];
-    console.log( this.dataElements);
-    this.createForm();
+   this.createForm();
     if(this.data['content_with_id']!=null)
     this.getData();
     // this.formGroup.controls['field_id'].setValue(this.data['content'].field_id);
@@ -32,10 +35,10 @@ export class DocumentFormDialogComponent implements OnInit {
 
   createForm() {
     this.formGroup = this.formBuilder.group({
-      field_id: [null, Validators.required],
+      field_id: [null, [Validators.required,this.validation]],
       field_label: [null, Validators.required],
       field_sequence: [null, Validators.required],
-      field_type:''
+      field_type:[null, Validators.required],
 
     });
   }
@@ -45,28 +48,12 @@ export class DocumentFormDialogComponent implements OnInit {
   }
 getData(){
   console.log(this.data);
-  //console.log(this.data['content_with_id'].field_id);
-  this.formGroup.controls['field_id'].setValue(this.data['content_with_id'].field_id);
+ this.formGroup.controls['field_id'].setValue(this.data['content_with_id'].field_id);
   this.formGroup.controls['field_label'].setValue(this.data['content_with_id'].field_label);
   this.formGroup.controls['field_sequence'].setValue(this.data['content_with_id'].field_sequence);
   this.formGroup.controls['field_type'].setValue(this.data['content_with_id'].field_type);
 }
-// checkFieldId(control){
-//   console.log(control.value);
-//   if(this.dataElements.length>0){
-//   for (let i in this.dataElements) {
-//     console.log(this.dataElements[i].field_id == this.formGroup.get('field_id').value);
-//     return  this.dataElements[i].field_id == this.formGroup.get('field_id').value
-//      ? {'validate_field':false}:null;
 
-// }
-//   }
-// }
-//   validateFieldId(){
-
-//     return this.formGroup.get('field_id').hasError('required') ? 'Field is required ':
-//     this.formGroup.get('field_id').hasError('validate_field')  ? 'Duplicate Field Id not allowed':'';
-//   }
 
 focusOutFunction(){
  if(this.dataElements.length>0){
@@ -74,14 +61,26 @@ focusOutFunction(){
          console.log(this.dataElements[i].field_id == this.formGroup.get('field_id').value);
         if(this.dataElements[i].field_id == this.formGroup.get('field_id').value){
           console.log("inside if");
-         this.error_msg="duplicate";
+         // this.formGroup.controls['field_id'].setErrors({'requirements': true});
+         this.status=true;
+        //  this.formGroup.setErrors({"status": false});
+         this.formGroup.get('field_id').setErrors({'status':true});
          break;
         }
     }
       }
 }
 focusinFunction(){
-  this.error_msg="";
+  this.status=false;
+}
+
+validation(control: AbstractControl) {
+  return  false?{ 'status' : { value: control.value } }:null;
+
+}
+getErrorId() {
+  return this.formGroup.get('field_id').hasError('required') ? 'Field is required' :
+    this.formGroup.get('field_id').hasError('status') ? 'Not a valid id'  : '';
 }
 }
 export interface DialogData {

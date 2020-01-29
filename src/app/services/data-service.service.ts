@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataServiceService {
+  private subject = new Subject<any>();
   constructor(private http: HttpClient) {
 
     localStorage.setItem('username',"admin@123");
@@ -32,5 +33,12 @@ export class DataServiceService {
   }
  public getData():Observable<any> {
     return this.http.get(this.api_url + '/users', {responseType: 'text'});
+  }
+  sendData(data: any) {
+    console.log(data);
+    this.subject.next({ text: data });
+  }
+  getDatas(): Observable<any> {
+    return this.subject.asObservable();
   }
 }

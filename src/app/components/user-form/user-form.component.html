@@ -3,79 +3,93 @@
 <div class="container" >
 
 
-  <form [formGroup]="formGroup"  class="form">
+ <form [formGroup]="formGroup"  class="form">
 <div>
-    <mat-form-field class="form-element" appearance="outline">
-      <mat-label >Username</mat-label>
-      <input matInput placeholder="Username" formControlName="user_name">
-       <!-- <mat-error *ngIf="!formGroup.controls['email'].valid && formGroup.controls['email'].touched">
-        {{ getErrorEmail() }}
-      </mat-error> -->
-    </mat-form-field>
-  </div>
-    <mat-form-field class="form-element" appearance="outline">
-      <mat-label>Password</mat-label>
-      <input matInput placeholder="Password" formControlName="password">
-      <!-- <mat-error *ngIf="!formGroup.controls['password'].valid && formGroup.controls['password'].touched">
-        {{ getErrorPassword() }}
-      </mat-error> -->
-    </mat-form-field>
+   <mat-form-field class="form-element" appearance="outline">
+     <mat-label >Username</mat-label>
+     <input matInput placeholder="Username" formControlName="user_name">
+      <mat-error *ngIf="!formGroup.controls['user_name'].valid && formGroup.controls['user_name'].touched">
+       Field is required
+     </mat-error>
+   </mat-form-field>
+ </div>
+   <mat-form-field class="form-element" appearance="outline">
+     <mat-label>Password</mat-label>
+     <input matInput placeholder="Password" formControlName="password">
+     <mat-error *ngIf="!formGroup.controls['password'].valid && formGroup.controls['password'].touched">
+       {{ getErrorPassword() }}
+     </mat-error>
+   </mat-form-field>
 
-    <mat-form-field class="form-element" appearance="outline">
-      <mat-label>Re Enter Password</mat-label>
-      <input matInput placeholder="Re Enter Password"  formControlName="re_password">
-      <!-- <mat-error *ngIf="!formGroup.controls['password'].valid && formGroup.controls['password'].touched">
-        {{ getErrorPassword() }}
-      </mat-error> -->
-    </mat-form-field>
+   <mat-form-field class="form-element" appearance="outline">
+     <mat-label>Re Enter Password</mat-label>
+     <input matInput placeholder="Re Enter Password"  formControlName="re_password">
+     <!-- <mat-error *ngIf="!formGroup.controls['re_password'].valid && formGroup.controls['re_password'].touched">
+       {{ getErrorRePass() }}
+     </mat-error> -->
+   </mat-form-field>
 
-    <mat-form-field class="form-element" appearance="outline">
-      <mat-label>First Name</mat-label>
-      <input matInput placeholder="First Name" formControlName="first_name">
+   <mat-form-field class="form-element" appearance="outline">
+     <mat-label>First Name</mat-label>
+     <input matInput placeholder="First Name" formControlName="first_name">
+     <mat-error *ngIf="!formGroup.controls['first_name'].valid && formGroup.controls['first_name'].touched">
+       Field is required
+     </mat-error>
 
-    </mat-form-field>
+   </mat-form-field>
 
-    <mat-form-field class="form-element" appearance="outline">
-      <mat-label>Last Name</mat-label>
-      <input matInput placeholder="Last Name" formControlName="last_name">
+   <mat-form-field class="form-element" appearance="outline">
+     <mat-label>Last Name</mat-label>
+     <input matInput placeholder="Last Name" formControlName="last_name">
+     <mat-error *ngIf="!formGroup.controls['last_name'].valid && formGroup.controls['last_name'].touched">
+       Field is required
+     </mat-error>
+   </mat-form-field>
 
-    </mat-form-field>
+   <mat-form-field class="form-element" appearance="outline">
+     <mat-label>Email</mat-label>
+     <input matInput placeholder="Email" formControlName="email">
+     <mat-error *ngIf="!formGroup.controls['email'].valid && formGroup.controls['email'].touched">
+       {{ getErrorEmail() }}
+     </mat-error>
+   </mat-form-field>
 
-    <mat-form-field class="form-element" appearance="outline">
-      <mat-label>Email</mat-label>
-      <input matInput placeholder="Email" formControlName="email">
-      <!-- <mat-error *ngIf="!formGroup.controls['email'].valid && formGroup.controls['email'].touched">
-        {{ getErrorEmail() }}
-      </mat-error> -->
-    </mat-form-field>
+   <mat-form-field class="form-element" appearance="outline">
+     <mat-label>Contact</mat-label>
+     <input matInput placeholder="Contact" formControlName="contact">
+     <mat-error *ngIf="!formGroup.controls['contact'].valid && formGroup.controls['contact'].touched">
+       {{ getErrorContact() }}
+     </mat-error>
 
-    <mat-form-field class="form-element" appearance="outline">
-      <mat-label>Contact</mat-label>
-      <input matInput placeholder="Contact" formControlName="contact">
-
-    </mat-form-field>
-
+   </mat-form-field>
+<!--
 <mat-form-field class="form-element" appearance="outline">
-  <mat-label>User Role</mat-label>
-  <mat-select formControlName="user_role">
-    <mat-option *ngFor="let roles of role" [value]="roles">
-      {{roles}}
-    </mat-option>
-  </mat-select>
-</mat-form-field>
+ <mat-label>User Role</mat-label>
+ <mat-select formControlName="user_role">
+   <mat-option *ngFor="let roles of role" [value]="roles">
+     {{roles}}
+   </mat-option>
+ </mat-select>
+</mat-form-field> -->
 
+<mat-select-autocomplete class="form-element" appearance="outline"
+[placeholder]="'Select Roles'"
+[options]="options"
+[multiple]='false'
+name="optionsSelector"
+ngDefaultControl
+[formControl]="profileForm.controls['selected']">
+<!-- To use formControl within formGroup, provide [formControl] = formGroupName.controls[‘formControlName’] otherwise just [formControl] = ‘formControlName’ -->
+</mat-select-autocomplete>
 
+   <div class="form-save">
+     <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!formGroup.valid">Save</button>
+   </div>
 
+   <div class="form-cancel">
+     <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!formGroup.valid">Cancel</button>
+   </div>
 
-    <div class="form-save">
-      <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!formGroup.valid">Save</button>
-    </div>
-
-    <div class="form-cancel">
-      <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!formGroup.valid">Cancel</button>
-    </div>
-
-  </form>
+ </form>
 </div>
 </mat-card>
-

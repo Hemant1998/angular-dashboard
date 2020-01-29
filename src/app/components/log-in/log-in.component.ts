@@ -11,6 +11,7 @@ export class LogInComponent implements OnInit {
   uname:string;
   pass:string;
   isLoggedIn:boolean;
+  hide = true;
   constructor(private service:DataServiceService,private routes:Router) { }
 
   ngOnInit() {

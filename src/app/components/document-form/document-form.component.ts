@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { DocumentFormDialogComponent } from '../document-form-dialog/document-form-dialog.component';
 import { BehaviorSubject } from 'rxjs';
+import { DataServiceService } from 'src/app/services/data-service.service';
 @Component({
   selector: 'app-document-form',
   templateUrl: './document-form.component.html',
@@ -22,7 +23,7 @@ export class DocumentFormComponent implements OnInit {
   dataSource = new BehaviorSubject([]);
   flag:Boolean;
   //dataSource = this.ELEMENT_DATA;
-  constructor(private formBuilder: FormBuilder,public dialog: MatDialog) { }
+  constructor(private formBuilder: FormBuilder,public dialog: MatDialog, private dataService:DataServiceService) { }
 
   ngOnInit() {
     this.createForm();
@@ -37,6 +38,7 @@ export class DocumentFormComponent implements OnInit {
   }
 
   opendialog(element){
+    this.sendData();
     const dialogRef = this.dialog.open(DocumentFormDialogComponent, {
       width: '800px',
       height: '400px',
@@ -70,6 +72,9 @@ export class DocumentFormComponent implements OnInit {
       this.ELEMENT_DATA.splice(this.ELEMENT_DATA.indexOf(ele), 1);
     })
       this.dataSource.next(this.ELEMENT_DATA);
+  }
+  sendData(){
+    this.dataService.sendData(this.ELEMENT_DATA);
   }
 }
 

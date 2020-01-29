@@ -13,6 +13,8 @@ import {MatCardModule} from '@angular/material/card';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatSelectModule} from '@angular/material/select';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { SelectAutocompleteModule } from 'mat-select-autocomplete';
 / FormsModule /
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -61,7 +63,9 @@ import { DocumentFormDialogComponent } from './components/document-form-dialog/d
     MatCardModule,
     MatGridListModule,
     MatSelectModule,
-    MatDialogModule
+    MatDialogModule,
+    MatAutocompleteModule,
+    SelectAutocompleteModule
   ],
   entryComponents: [DocumentFormDialogComponent],
   providers: [HttpClientModule],

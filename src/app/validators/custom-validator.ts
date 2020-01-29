@@ -1,9 +1,14 @@
-import { AbstractControl } from '@angular/forms';
+import { AbstractControl, ValidatorFn } from '@angular/forms';
+import { DataServiceService } from '../services/data-service.service';
 
-export function checkFieldId(control: AbstractControl) {
-  this.dataElements=this.data['content'];
-  for (let i in this.dataElements) {
-    if(this.dataElements[i].field_id == this.formGroup.get('field_id').value)
-          return true;
+export function checkFieldId(control: AbstractControl,dataService:DataServiceService) :ValidatorFn{
+  console.log("hello");
+  return (control: AbstractControl) => {
+
+  dataService.getDatas().subscribe(res=>{
+    console.log("inside validator");
+    console.log(res);
+  })
+  return { 'data' : { value: control.value } };
 }
 }
