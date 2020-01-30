@@ -1,8 +1,12 @@
 .login-wrapper {
   /* background-image: url(../../../assets/folder-146940_1280.png); */
   padding-top: 78px;
+  margin-left: -150px;
 }
 /* .mat-drawer-backdrop {
   background-image: url(../../../assets/folder-146940_1280.png);
   color: rgba(0,0,0,.87);
+} */
+/* .box{
+  background-color: rgba(243, 231, 231, 0.87);
 } */

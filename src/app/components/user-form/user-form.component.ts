@@ -59,7 +59,7 @@ export class UserFormComponent implements OnInit {
      'last_name': [null, Validators.required],
      'email':[null, [Validators.required, Validators.pattern(emailregex)]],
      'contact':[null,[Validators.required, Validators.pattern(mobnum)]],
-     'user_role':''
+     'user_role':[null, Validators.required]
    });
  }
 

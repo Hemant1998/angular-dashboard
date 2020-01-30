@@ -16,18 +16,22 @@
         <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
           <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
             <a mat-icon-button  routerLink="{{node.navigate_url}}" routerLinkActive="active">
-            <mat-icon style="padding-right:10px;">{{node.icon}}</mat-icon>{{node.name}}
+            <mat-icon style="padding-right:10px;">{{node.icon}}</mat-icon>
+            <span [@animateText]="linkText ? 'show' : 'hide'"> </span>{{node.name}}
+
           </a>
           </mat-tree-node>
 
           <mat-tree-node  class ="treenode" *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding >
             <button *ngIf="!node.active; else elseblock" mat-icon-button>
-              <mat-icon style="padding-right:10px;">{{node.icon}}</mat-icon>{{node.name}}
+              <mat-icon style="padding-right:10px;">{{node.icon}}</mat-icon>
+              <span [@animateText]="linkText ? 'show' : 'hide'"> </span>{{node.name}}
             </button>
             <ng-template #elseblock>
             <button  class="btn" mat-icon-button matTreeNodeToggle
             [attr.aria-label]="'toggle ' + node.name">
-            <mat-icon style="padding-right:10px;">{{node.icon}}</mat-icon>{{node.name}}
+            <mat-icon style="padding-right:10px;">{{node.icon}}</mat-icon>
+            <span [@animateText]="linkText ? 'show' : 'hide'"> </span>{{node.name}}
       <mat-icon >
         {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
       </mat-icon>
@@ -36,19 +40,19 @@
     </mat-tree-node>
         </mat-tree>
         <span class="spacer"></span>
-        <div [ngClass]='appropriateClass' style="padding: 10px 10px;">
+        <!-- <div [ngClass]='appropriateClass' style="padding: 10px 10px;">
           <button mat-icon-button class="togglebutton" (click)="toggleSidenav()">
             <mat-icon *ngIf="sideNavState">arrow_left</mat-icon>
             <mat-icon *ngIf="!sideNavState">arrow_right</mat-icon>
           </button>
-        </div>
+        </div> -->
   </mat-sidenav>
   <mat-sidenav-content #myclass class="myCSSclass"  >
     <div>
     <mat-toolbar  style="width:auto" color="primary" *ngIf="isLoggedIn | async" [@onMainContentChange]="sideNavState ? 'close':'open'"  >
-      <!-- <button mat-mini-fab (click)="toggleSidenav()" color="warn" style="margin: 10px;">
+       <button mat-mini-fab (click)="toggleSidenav()" color="warn" style="margin: 10px;">
         <mat-icon aria-label="Menu">menu</mat-icon>
-      </button> -->
+      </button>
       <span>DOCUMENT APPROVEL SYSTEM</span>
       <span class="toolbar-spacer"></span>
     <button mat-button [matMenuTriggerFor]="menu">

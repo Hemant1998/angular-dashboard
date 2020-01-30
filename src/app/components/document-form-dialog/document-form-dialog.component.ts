@@ -19,6 +19,7 @@ export class DocumentFormDialogComponent implements OnInit {
   dataElements:any;
   error_msg:string;
   status=false;
+  seq_status=false;
   constructor(private formBuilder: FormBuilder, public dialogRef: MatDialogRef<DocumentFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,private dataService:DataServiceService) {
     }
@@ -37,7 +38,7 @@ export class DocumentFormDialogComponent implements OnInit {
     this.formGroup = this.formBuilder.group({
       field_id: [null, [Validators.required,this.validation]],
       field_label: [null, Validators.required],
-      field_sequence: [null, Validators.required],
+      field_sequence: [null, [Validators.required,this.validationSeq]],
       field_type:[null, Validators.required],
 
     });
@@ -55,32 +56,48 @@ getData(){
 }
 
 
-focusOutFunction(){
- if(this.dataElements.length>0){
+focusOutFunction(data:string){
+ if(this.dataElements.length>0 && this.data['content_with_id']==null){
       for (let i in this.dataElements) {
-         console.log(this.dataElements[i].field_id == this.formGroup.get('field_id').value);
-        if(this.dataElements[i].field_id == this.formGroup.get('field_id').value){
-          console.log("inside if");
-         // this.formGroup.controls['field_id'].setErrors({'requirements': true});
-         this.status=true;
-        //  this.formGroup.setErrors({"status": false});
-         this.formGroup.get('field_id').setErrors({'status':true});
-         break;
+        if(data=='field_sequence'){
+       if(this.dataElements[i].field_sequence == this.formGroup.get('field_sequence').value){
+          this.seq_status=true;
+          this.formGroup.get(data).setErrors({'seq_status':true});
+         }
         }
+        if(data=='field_id'){
+       if(this.dataElements[i].field_id == this.formGroup.get('field_id').value){
+         this.status=true;
+         this.formGroup.get(data).setErrors({'status':true});
+        }
+      }
     }
       }
 }
-focusinFunction(){
-  this.status=false;
+focusinFunction(data:string){
+  if(data=='field_id'){
+     this.status=false;
+  }
+  if(data=='field_sequence'){
+    this.seq_status=false;
+  }
 }
 
 validation(control: AbstractControl) {
   return  false?{ 'status' : { value: control.value } }:null;
 
 }
+validationSeq(control: AbstractControl) {
+  return  false?{ 'seq_status' : { value: control.value } }:null;
+
+}
 getErrorId() {
   return this.formGroup.get('field_id').hasError('required') ? 'Field is required' :
-    this.formGroup.get('field_id').hasError('status') ? 'Not a valid id'  : '';
+    this.formGroup.get('field_id').hasError('status') ? 'Duplicate Field Id not allowed'  : '';
+}
+getErrorSeq() {
+  return this.formGroup.get('field_sequence').hasError('required') ? 'Field is required' :
+    this.formGroup.get('field_sequence').hasError('seq_status') ? 'Duplicate Field Sequence not allowed'  : '';
 }
 }
 export interface DialogData {

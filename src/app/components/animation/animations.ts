@@ -12,8 +12,8 @@ export const onSideNavChange = trigger('onSideNavChange', [
       'min-width': '250px'
     })
   ),
-  transition('close => open', animate('250ms ease-in')),
-  transition('open => close', animate('250ms ease-in')),
+  transition('close => open', animate('100ms ease-in')),
+  transition('open => close', animate('100ms ease-in')),
 ]);
 
 
@@ -29,8 +29,8 @@ export const onMainContentChange = trigger('onMainContentChange', [
       'margin-left': '178px'
     })
   ),
-  transition('close => open', animate('250ms ease-in')),
-  transition('open => close', animate('250ms ease-in')),
+  transition('close => open', animate('100ms ease-in')),
+  transition('open => close', animate('100ms ease-in')),
 ]);
 
 export const onMainContentChangec = trigger('onMainContentChangec', [
@@ -45,8 +45,8 @@ export const onMainContentChangec = trigger('onMainContentChangec', [
       'margin-left': '0px'
     })
   ),
-  transition('close => open', animate('250ms ease-in')),
-  transition('open => close', animate('250ms ease-in')),
+  transition('close => open', animate('100ms ease-in')),
+  transition('open => close', animate('100ms ease-in')),
 ]);
 
 
@@ -63,6 +63,6 @@ export const animateText = trigger('animateText', [
       opacity: 1,
     })
   ),
-  transition('close => open', animate('350ms ease-in')),
-  transition('open => close', animate('200ms ease-out')),
+  transition('close => open', animate('10ms ease-in')),
+  transition('open => close', animate('10ms ease-out')),
 ]);

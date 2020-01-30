@@ -50,8 +50,8 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoggedIn=this.service.isLogged();
-    // if(this.isLoggedIn)
-    // this._router.navigate(['/admin']);
+    if(this.isLoggedIn)
+    this._router.navigate(['/admin']);
   }
 
   @ViewChild('myclass', {static: false}) el:ElementRef;

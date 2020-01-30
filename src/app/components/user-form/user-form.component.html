@@ -1,8 +1,6 @@
 <div class="heading"><h3>Create New User</h3></div>
 <mat-card >
 <div class="container" >
-
-
  <form [formGroup]="formGroup"  class="form">
 <div>
    <mat-form-field class="form-element" appearance="outline">
@@ -72,16 +70,27 @@
  </mat-select>
 </mat-form-field> -->
 
-<mat-select-autocomplete class="form-element" appearance="outline"
+<!-- <mat-select-autocomplete class="form-element" appearance="outline"
 [placeholder]="'Select Roles'"
 [options]="options"
 [multiple]='false'
 name="optionsSelector"
 ngDefaultControl
 [formControl]="profileForm.controls['selected']">
-<!-- To use formControl within formGroup, provide [formControl] = formGroupName.controls[‘formControlName’] otherwise just [formControl] = ‘formControlName’ -->
-</mat-select-autocomplete>
 
+</mat-select-autocomplete> -->
+<mat-form-field class="form-element" appearance="outline">
+  <mat-label>User Role</mat-label>
+  <input type="text" placeholder="Select Roles" aria-label="Number" matInput formControlName="user_role" [matAutocomplete]="auto">
+  <mat-error *ngIf="!formGroup.controls['user_role'].valid && formGroup.controls['user_role'].touched">
+    Field is Required
+  </mat-error>
+  <mat-autocomplete #auto="matAutocomplete">
+    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+      {{option}}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>
    <div class="form-save">
      <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!formGroup.valid">Save</button>
    </div>
