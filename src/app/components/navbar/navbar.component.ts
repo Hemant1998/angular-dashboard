@@ -138,7 +138,7 @@ const TREE_DATA: FoodNode[] = [
     navigate_url: '#',
     active:true,
     children: [
-      {name: 'List Document Type',navigate_url: '#', icon: 'list'},
+      {name: 'List Document Type',navigate_url: 'document-type-listing', icon: 'list'},
       {name: 'New Document Type',navigate_url: 'document-form',icon: 'create'}
     ]
   },

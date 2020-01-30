@@ -34,6 +34,8 @@ import {MatTreeModule} from '@angular/material/tree';
 import { UserFormComponent } from './components/user-form/user-form.component';
 import { DocumentFormComponent } from './components/document-form/document-form.component';
 import { DocumentFormDialogComponent } from './components/document-form-dialog/document-form-dialog.component';
+import { DocumentTypeListingComponent } from './components/document-type/document-type-listing/document-type-listing.component';
+import { DocumentTypeAddformComponent } from './components/document-type/document-type-addform/document-type-addform.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,7 +48,9 @@ import { DocumentFormDialogComponent } from './components/document-form-dialog/d
     TableComponent,
     UserFormComponent,
     DocumentFormComponent,
-    DocumentFormDialogComponent
+    DocumentFormDialogComponent,
+    DocumentTypeListingComponent,
+    DocumentTypeAddformComponent
   ],
   imports: [
     BrowserModule,

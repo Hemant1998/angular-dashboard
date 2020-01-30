@@ -1,0 +1,7 @@
+<div class="form-save">
+  <button mat-raised-button color="primary" type="submit" class="button" routerLink="/userForm">Create user</button>
+ </div>
+
+<div class="table">
+  <app-table [dataUrl]="grid_url" [headerColumns]="Columns" (outData)="gotToDesc($event)"> </app-table>
+  </div>
