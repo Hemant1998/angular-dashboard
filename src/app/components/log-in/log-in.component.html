@@ -1,21 +1,28 @@
-<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center" >
-    <mat-card class="box">
-      <mat-card-header>
-        <mat-card-title>Log in</mat-card-title>
-      </mat-card-header>
-        <mat-card-content>
-          <mat-form-field class="example-full-width">
-            <input matInput [(ngModel)]="uname" placeholder="Username">
-          </mat-form-field>
+<div class="background">
+  <div class="container">
+    <div class="screen">
 
-          <mat-form-field class="example-full-width">
-            <input matInput [(ngModel)]="pass" placeholder="Password"
-            [type]="hide ? 'password' : 'text'">
-            <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-          </mat-form-field>
-        </mat-card-content>
-        <button mat-stroked-button color="accent" (click)=login() class="btn-block">Log in</button>
+      <div class="screen-body">
 
-    </mat-card>
+        <div class="screen-body-item">
+          <div class="app-form">
+            <div class="app-form-group">
+              <input  [(ngModel)]="uname" class="app-form-control" placeholder="User Name" value="">
+            </div>
 
+            <div class="app-form-group">
+
+              <input  type="{{type}}" [(ngModel)]="pass" class="app-form-control" placeholder="Password">
+              <i class="fa fa-eye-slash" (click)=myFunction()></i>
+            </div>
+
+
+            <div class="app-form-group buttons">
+              <button  (click)=login() class="app-form-button">Log In</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+</div>

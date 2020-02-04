@@ -1,39 +1,56 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { DocumentFormDialogComponent } from '../document-form-dialog/document-form-dialog.component';
-import { BehaviorSubject } from 'rxjs';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { MatDialog } from '@angular/material';
 import { DataServiceService } from 'src/app/services/data-service.service';
+import { TemplateFormDialogComponent } from '../template-form-dialog/template-form-dialog.component';
+import {map, startWith} from 'rxjs/operators';
 @Component({
-  selector: 'app-document-form',
-  templateUrl: './document-form.component.html',
-  styleUrls: ['./document-form.component.css']
+  selector: 'app-template-form',
+  templateUrl: './template-form.component.html',
+  styleUrls: ['./template-form.component.css']
 })
-export class DocumentFormComponent implements OnInit {
+export class TemplateFormComponent implements OnInit {
 
 
   formGroup: FormGroup;
   titleAlert: string = 'This field is required';
   post: any = '';
-  role: string[]=['Admin','Author']
+  doc_type_list: string[]=['Invoice','Purchase Order']
   displayedColumns: string[] = ['field_id', 'field_label', 'field_sequence', 'field_type','action'];
+  displayedColumns_dtype: string[] = ['field_id', 'field_label', 'field_sequence', 'field_type'];
   ELEMENT_DATA: Doc_data[] = [
 
   ];
   dataSource = new BehaviorSubject([]);
+  dataSource_dtype = new BehaviorSubject([]);
   flag:Boolean;
   id:number;
   //dataSource = this.ELEMENT_DATA;
+
+  filteredOptions: Observable<string[]>;
   constructor(private formBuilder: FormBuilder,public dialog: MatDialog, private dataService:DataServiceService) { }
 
   ngOnInit() {
+
     this.createForm();
+    this.filteredOptions = this.formGroup.get('doc_type_dropdown').valueChanges
+    .pipe(
+      startWith(''),
+      map(value => this._filter(value))
+    );
+  }
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.doc_type_list.filter(option => option.toLowerCase().includes(filterValue));
   }
 
   createForm() {
     this.formGroup = this.formBuilder.group({
-      'doc_type': [null, Validators.required],
+      'doc_templ': [null, Validators.required],
       'discription': [null, Validators.required],
+      'doc_type_dropdown':[null, Validators.required],
 
     });
   }
@@ -44,7 +61,7 @@ export class DocumentFormComponent implements OnInit {
         this.id=0;
    console.log("beforopendialog");
    console.log(this.ELEMENT_DATA);
-    const dialogRef = this.dialog.open(DocumentFormDialogComponent, {
+    const dialogRef = this.dialog.open(TemplateFormDialogComponent, {
       width: '800px',
       height: '400px',
       data:{content:this.ELEMENT_DATA,
@@ -94,5 +111,3 @@ export interface Doc_data {
   field_type: string;
   action:any;
 }
-
-

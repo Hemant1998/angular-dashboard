@@ -1,16 +1,16 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { DocumentFormComponent } from '../document-form/document-form.component';
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { DataServiceService } from 'src/app/services/data-service.service';
-import { checkFieldId } from 'src/app/validators/custom-validator';
+import { TemplateFormComponent } from '../template-form/template-form.component';
 
 @Component({
-  selector: 'app-document-form-dialog',
-  templateUrl: './document-form-dialog.component.html',
-  styleUrls: ['./document-form-dialog.component.css']
+  selector: 'app-template-form-dialog',
+  templateUrl: './template-form-dialog.component.html',
+  styleUrls: ['./template-form-dialog.component.css']
 })
-export class DocumentFormDialogComponent implements OnInit {
+export class TemplateFormDialogComponent implements OnInit {
+
 
   formGroup: FormGroup;
   titleAlert: string = 'This field is required';
@@ -20,7 +20,7 @@ export class DocumentFormDialogComponent implements OnInit {
   error_msg:string;
   status=false;
   seq_status=false;
-  constructor(private formBuilder: FormBuilder, public dialogRef: MatDialogRef<DocumentFormComponent>,
+  constructor(private formBuilder: FormBuilder, public dialogRef: MatDialogRef<TemplateFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,private dataService:DataServiceService) {
       this.dataElements=this.data['content'];
     }

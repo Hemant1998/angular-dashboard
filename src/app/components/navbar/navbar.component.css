@@ -52,3 +52,17 @@ mat-sidenav-content {
 .treenode{
   padding-left: 27px !important
 }
+.active-link {
+  /* //background: #0b9444; */
+  background: #262a33;
+  color: #fff;
+  opacity: 1;
+
+}
+a:hover {
+  text-decoration: none;
+  color:green;
+}
+.treenode:hover{
+  color: mediumturquoise;
+}

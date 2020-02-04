@@ -1,51 +1,65 @@
-<mat-card >
-  <div class="container"  novalidate>
 
-
-    <form [formGroup]="formGroup"  class="form">
-      <mat-form-field class="form-element" appearance="outline">
-        <mat-label>Field Id</mat-label>
-        <input matInput placeholder="Field Id" formControlName="field_id" (focus)="focusinFunction('field_id')" (focusout)="focusOutFunction('field_id')">
-           <mat-error *ngIf="!formGroup.controls['field_id'].valid && formGroup.controls['field_id'].touched">
-            {{getErrorId()}}
-        </mat-error>
-        <!-- <mat-hint style="color:red" *ngIf="status">Duplicate value not allowed</mat-hint> -->
-      </mat-form-field>
-      <mat-form-field class="form-element" appearance="outline">
-        <mat-label>Field Label</mat-label>
-        <input matInput placeholder="Field Label" formControlName="field_label">
-        <!-- <mat-error *ngIf="!formGroup.controls['password'].valid && formGroup.controls['password'].touched">
-          {{ getErrorPassword() }}
-        </mat-error> -->
-      </mat-form-field>
-
-      <mat-form-field class="form-element" appearance="outline">
-        <mat-label>Field Sequence</mat-label>
-        <input matInput placeholder="Field Sequence" formControlName="field_sequence" (focus)="focusinFunction('field_sequence')" (focusout)="focusOutFunction('field_sequence')">
-        <mat-error *ngIf="!formGroup.controls['field_sequence'].valid && formGroup.controls['field_sequence'].touched">
-          {{getErrorSeq()}}
-      </mat-error>
-      </mat-form-field>
-
-      <mat-form-field class="form-element" appearance="outline">
-        <mat-label>Field Type</mat-label>
-        <mat-select formControlName="field_type">
-          <mat-option *ngFor="let type of field_type" [value]="type">
-            {{type}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-
-
-      <div class="form-save">
-        <button mat-raised-button color="primary" (click)="dialogsubmit()"
-        [mat-dialog-close]="formGroup" class="button" [disabled]="!formGroup.valid">Save</button>
-      </div>
-      <div class="form-cancel">
-        <button mat-raised-button color="primary"  class="button" (click)="this.dialogRef.close()">Cancel</button>
-      </div>
-
-    </form>
+<div class="card card-outline-secondary">
+  <div class="card-header">
+      <h3 class="mb-0">Create Document Type</h3>
   </div>
-  </mat-card>
+  <div class="card-body">
+      <form class="form" role="form" [formGroup]="formGroup" autocomplete="off">
+
+        <div class="row">
+          <div class="col">
+          <div class="form-group">
+            <label for="inputName">Field Id </label>
+            <input type="text" class="form-control" formControlName="field_id" placeholder="Field Id" (focus)="focusinFunction('field_id')" (keyup)="focusOutFunction('field_id')">
+            <span *ngIf="!formGroup.controls['field_id'].valid && formGroup.controls['field_id'].touched">
+              {{getErrorId()}}
+          </span>
+        </div>
+        </div>
+
+
+      <div class="col">
+        <div class="form-group">
+          <label for="inputName">Field Label</label>
+          <input type="text" class="form-control" formControlName="field_label" placeholder="Field Label">
+          <span *ngIf="!formGroup.controls['field_label'].valid && formGroup.controls['field_label'].touched">
+            Field is required
+          </span>
+        </div>
+      </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+        <div class="form-group">
+          <label for="inputName">Field Sequence </label>
+          <input type="text" class="form-control" formControlName="field_sequence" placeholder="Field Sequence " (focus)="focusinFunction('field_sequence')" (keyup)="focusOutFunction('field_sequence')">
+          <span *ngIf="!formGroup.controls['field_sequence'].valid && formGroup.controls['field_sequence'].touched">
+            {{getErrorSeq()}}
+        </span>
+      </div>
+      </div>
+
+
+    <div class="col">
+      <div class="form-group">
+        <label>Field Type</label>
+        <select formControlName="field_type" formControlName="field_type">
+       <option>string</option>
+        </select>
+      </div>
+    </div>
+    </div>
+
+        <div class="form-save">
+          <button mat-raised-button color="primary" (click)="dialogsubmit()"
+          [mat-dialog-close]="formGroup" class="button" [disabled]="!formGroup.valid">Save</button>
+        </div>
+        <div class="form-cancel">
+          <button mat-raised-button color="primary"  class="button" (click)="this.dialogRef.close()">Cancel</button>
+        </div>
+      </form>
+  </div>
+ </div>
+
 

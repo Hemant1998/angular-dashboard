@@ -97,7 +97,6 @@ export class TableComponent  {
             this.resultsLength = data.totalElements;
             this.totalPagesNumber = data.totalPages;
             this.dataSource.paginator = this.paginator;
-
             return data.content;
           }),
           catchError(() => {

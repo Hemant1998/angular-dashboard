@@ -36,6 +36,9 @@ import { DocumentFormComponent } from './components/document-form/document-form.
 import { DocumentFormDialogComponent } from './components/document-form-dialog/document-form-dialog.component';
 import { DocumentTypeListingComponent } from './components/document-type/document-type-listing/document-type-listing.component';
 import { DocumentTypeAddformComponent } from './components/document-type/document-type-addform/document-type-addform.component';
+import { TemplateListingComponent } from './components/document-template/template-listing/template-listing.component';
+import { TemplateFormComponent } from './components/document-template/template-form/template-form.component';
+import { TemplateFormDialogComponent } from './components/document-template/template-form-dialog/template-form-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,7 +53,10 @@ import { DocumentTypeAddformComponent } from './components/document-type/documen
     DocumentFormComponent,
     DocumentFormDialogComponent,
     DocumentTypeListingComponent,
-    DocumentTypeAddformComponent
+    DocumentTypeAddformComponent,
+    TemplateListingComponent,
+    TemplateFormComponent,
+    TemplateFormDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -71,7 +77,7 @@ import { DocumentTypeAddformComponent } from './components/document-type/documen
     MatAutocompleteModule,
     SelectAutocompleteModule
   ],
-  entryComponents: [DocumentFormDialogComponent],
+  entryComponents: [DocumentFormDialogComponent,TemplateFormDialogComponent],
   providers: [HttpClientModule],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

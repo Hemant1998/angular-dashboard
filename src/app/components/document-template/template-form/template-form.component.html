@@ -1,0 +1,144 @@
+<div class="heading"><h3>Create Document Template</h3></div>
+<mat-card >
+<div class="container"  novalidate>
+
+
+  <form [formGroup]="formGroup"  class="form">
+    <mat-form-field class="form-element" appearance="outline">
+      <mat-label>Document Template</mat-label>
+      <input matInput placeholder="Document Template" formControlName="doc_templ">
+       <!-- <mat-error *ngIf="!formGroup.controls['email'].valid && formGroup.controls['email'].touched">
+        {{ getErrorEmail() }}
+      </mat-error> -->
+    </mat-form-field>
+    <mat-form-field class="form-element" appearance="outline">
+      <mat-label>Description</mat-label>
+      <textarea matInput placeholder="Description" formControlName="discription"></textarea>
+      <!-- <mat-error *ngIf="!formGroup.controls['password'].valid && formGroup.controls['password'].touched">
+        {{ getErrorPassword() }}
+      </mat-error> -->
+    </mat-form-field>
+    <mat-form-field class="form-element" appearance="outline">
+      <mat-label>Document Type</mat-label>
+      <input type="text" placeholder="Select Document Type" aria-label="Number" matInput formControlName="doc_type_dropdown" [matAutocomplete]="auto">
+      <mat-error *ngIf="!formGroup.controls['doc_type_dropdown'].valid && formGroup.controls['doc_type_dropdown'].touched">
+        Field is Required
+      </mat-error>
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+          {{option}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <div class="upload-btn-wrapper">
+      <button class="btn"><mat-icon>file_upload</mat-icon>Upload</button>
+
+      <input type="file" name="myfile" />
+    </div>
+    <div >
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" >
+
+      <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="field_id">
+        <th mat-header-cell *matHeaderCellDef> Field Id </th>
+        <td mat-cell *matCellDef="let element"> {{element.field_id}} </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="field_label">
+        <th mat-header-cell *matHeaderCellDef> Field Label </th>
+        <td mat-cell *matCellDef="let element"> {{element.field_label}} </td>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="field_sequence">
+        <th mat-header-cell *matHeaderCellDef> Field Seq. </th>
+        <td mat-cell *matCellDef="let element"> {{element.field_sequence}} </td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="field_type">
+        <th mat-header-cell *matHeaderCellDef> Field Type </th>
+        <td mat-cell *matCellDef="let element"> {{element.field_type}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef> Action</th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button >
+            <mat-icon (click)="opendialog(element)">edit</mat-icon>
+          </button>
+          <button mat-icon-button (click)="deleteElement(element.field_id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+    <div class="form-addfield">
+      <button mat-raised-button color="primary" tooltip="Add filed on below table" (click)="opendialog(null)" class="button" >Add Field</button>
+    </div>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" >
+
+      <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="field_id">
+        <th mat-header-cell *matHeaderCellDef> Field Id </th>
+        <td mat-cell *matCellDef="let element"> {{element.field_id}} </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="field_label">
+        <th mat-header-cell *matHeaderCellDef> Field Label </th>
+        <td mat-cell *matCellDef="let element"> {{element.field_label}} </td>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="field_sequence">
+        <th mat-header-cell *matHeaderCellDef> Field Seq. </th>
+        <td mat-cell *matCellDef="let element"> {{element.field_sequence}} </td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="field_type">
+        <th mat-header-cell *matHeaderCellDef> Field Type </th>
+        <td mat-cell *matCellDef="let element"> {{element.field_type}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef> Action</th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button >
+            <mat-icon (click)="opendialog(element)">edit</mat-icon>
+          </button>
+          <button mat-icon-button (click)="deleteElement(element.field_id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+
+    <div class="form-save">
+      <button mat-raised-button color="primary" type="submit" class="button" >Save</button>
+    </div>
+
+    <div class="form-cancel">
+      <button mat-raised-button color="primary" type="submit" class="button" >Cancel</button>
+    </div>
+
+  </form>
+</div>
+</mat-card>
+

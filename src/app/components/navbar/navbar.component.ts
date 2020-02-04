@@ -149,7 +149,7 @@ const TREE_DATA: FoodNode[] = [
     active: true,
     children: [
       {name: 'List Doc Template',navigate_url: '#', icon: 'list'},
-      {name: 'New Doc Template',navigate_url: '#',icon: 'create'}
+      {name: 'New Doc Template',navigate_url: 'document-template-form',icon: 'create'}
     ]
   },
   {
