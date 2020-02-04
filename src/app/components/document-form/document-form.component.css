@@ -56,9 +56,19 @@
   .form-control{
     width: 300px;
   }
+  .card-body{
+    margin-left: 110px;
+  }
 
+  .btnclass{
+    margin-top: 32px;
+  }
 
-
+  span{
+    color: red;
+    font-size: 10px;
+    position: absolute;
+   }
 
 
 

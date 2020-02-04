@@ -39,6 +39,7 @@ import { DocumentTypeAddformComponent } from './components/document-type/documen
 import { TemplateListingComponent } from './components/document-template/template-listing/template-listing.component';
 import { TemplateFormComponent } from './components/document-template/template-form/template-form.component';
 import { TemplateFormDialogComponent } from './components/document-template/template-form-dialog/template-form-dialog.component';
+import { ComboBoxComponent } from './components/combo-box/combo-box.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,7 +57,8 @@ import { TemplateFormDialogComponent } from './components/document-template/temp
     DocumentTypeAddformComponent,
     TemplateListingComponent,
     TemplateFormComponent,
-    TemplateFormDialogComponent
+    TemplateFormDialogComponent,
+    ComboBoxComponent
   ],
   imports: [
     BrowserModule,

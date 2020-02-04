@@ -40,7 +40,7 @@ export class DocumentFormDialogComponent implements OnInit {
       field_id: [null, [Validators.required,this.validation]],
       field_label: [null, Validators.required],
       field_sequence: [null, [Validators.required,this.validationSeq]],
-      field_type:[null, Validators.required],
+      field_type:' ',
 
     });
   }

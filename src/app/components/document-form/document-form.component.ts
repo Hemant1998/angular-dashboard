@@ -42,8 +42,7 @@ export class DocumentFormComponent implements OnInit {
    // this.sendData();
    if(this.ELEMENT_DATA.length==0)
         this.id=0;
-   console.log("beforopendialog");
-   console.log(this.ELEMENT_DATA);
+
     const dialogRef = this.dialog.open(DocumentFormDialogComponent, {
       width: '800px',
       height: '400px',
@@ -80,8 +79,6 @@ export class DocumentFormComponent implements OnInit {
     })
 
       this.dataSource.next(this.ELEMENT_DATA);
-
-
   }
 
 }

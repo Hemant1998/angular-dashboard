@@ -4,7 +4,7 @@
  span{
   color: red;
   font-size: 10px;
-
+  position: absolute;
  }
  .card-body{
   margin-left: 145px;
