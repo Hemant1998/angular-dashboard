@@ -36,17 +36,17 @@
             Field is required
           </span>
       </div>
-      </div>
-
-
+    </div>
       <div class="col">
-        <div class="upload-btn-wrapper">
-          <button class="btn"> <i class="fa fa-upload" aria-hidden="true"></i>Upload</button>
-          <input type="file" name="myfile" />
+        <label for="inputName">Document Upload</label>
+        <div class="custom-file">
+
+          <input type="file" class="custom-file-input">
+          <label class="custom-file-label" for="customFile">Choose file</label>
         </div>
       </div>
-      </div>
 
+      </div>
       <div >
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" >
 

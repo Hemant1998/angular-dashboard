@@ -1,42 +1,35 @@
 .combobox {
-
   margin: auto;
+  width: 340px;
 }
 
 .combobox-input {
-
   width: 330px;
   padding: 10px;
   font-size: 18px;
 }
 
-.combobox-input:focus{
-
+.combobox-input:focus {
   outline-style: none;
 }
 
-
-
 .selected {
-
   color: cornsilk;
   background-color: rgb(165, 112, 112);
 }
 
-list-item{
-
+list-item {
   display: block;
   font-size: 18px;
   padding: 10px;
 }
 
-list-item:hover{
-
+list-item:hover {
   background-color: grey;
   color: white;
 }
 
-.combobox-options{
+.combobox-options {
   width: 330px;
   background: white;
   /*border-left: 1px solid black;*/

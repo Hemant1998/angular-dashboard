@@ -20,6 +20,11 @@ export class DocumentFormDialogComponent implements OnInit {
   error_msg:string;
   status=false;
   seq_status=false;
+  receivedChildMessage: string;
+
+  getMessage(message: string) {
+    this.receivedChildMessage = message;
+  }
   constructor(private formBuilder: FormBuilder, public dialogRef: MatDialogRef<DocumentFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,private dataService:DataServiceService) {
       this.dataElements=this.data['content'];
@@ -47,6 +52,9 @@ export class DocumentFormDialogComponent implements OnInit {
   dialogsubmit()
   {
     console.log("inside dialogsubmit");
+    this.formGroup.controls['field_type'].setValue(this.receivedChildMessage);
+    console.log(this.receivedChildMessage);
+
   }
 getData(){
  this.formGroup.controls['field_id'].setValue(this.data['content_with_id'].field_id);

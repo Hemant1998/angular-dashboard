@@ -1,10 +1,20 @@
-<div class="form-assign">
-  <button mat-raised-button color="primary" type="submit" class="button" >Assign role</button>
- </div>
- <div class="form-save">
-  <button mat-raised-button color="primary" type="submit" class="button" routerLink="/userForm">Create New</button>
- </div>
-
- <div class="table">
- <app-table [dataUrl]="grid_url" [headerColumns]="Columns" (outData)="gotToDesc($event)"> </app-table>
- </div>
+<div class="row">
+  <div class="col-md-10">
+    <button type="submit" class="btn btn-success float-right">
+      Assign role
+    </button>
+  </div>
+  <div class="col-md-2">
+    <button type="submit" class="btn btn-success" routerLink="/userForm">
+      Create New
+    </button>
+  </div>
+</div>
+<div class="table">
+  <app-table
+    [dataUrl]="grid_url"
+    [headerColumns]="Columns"
+    (outData)="gotToDesc($event)"
+  >
+  </app-table>
+</div>

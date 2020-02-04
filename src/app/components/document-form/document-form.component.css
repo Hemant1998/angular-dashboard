@@ -2,73 +2,65 @@
   /* This fills the remaining space, by using flexbox.
      Every toolbar row uses a flexbox row layout. */
   flex: 1 1 auto;
- }
- .heading{
+}
+.heading {
   margin-top: -35px;
- }
+}
 
- .container {
+.container {
   padding: 10px;
- }
+}
 
- .form {
+.form {
   min-width: 150px;
   max-width: 800px;
   width: 100%;
- }
+}
 
- .form-element {
+.form-element {
   padding: 5px 0px 25px 2px;
   width: 40%;
- }
+}
 
-
- .button {
+.button {
   width: 100%;
- }
- .usr-mat-card {
+}
+.usr-mat-card {
   max-width: 200px;
- }
+}
 
- .mat-form-field{
-  margin-left:70px;
- }
+.mat-form-field {
+  margin-left: 70px;
+}
 
-
- table {
+table {
   width: 90%;
+}
 
- }
-
- .form-addfield{
+.form-addfield {
   margin-left: 700px;
-  width:10%;
+  width: 10%;
   margin-top: -40px;
   margin-bottom: 40px;
-  }
+}
 
+.form-cancel .button {
+  font-size: 13px;
+}
 
+.form-control {
+  width: 300px;
+}
+.card-body {
+  margin-left: 110px;
+}
 
-  .form-cancel .button{
-    font-size: 13px;
-  }
+.btnclass {
+  margin-top: 32px;
+}
 
-  .form-control{
-    width: 300px;
-  }
-  .card-body{
-    margin-left: 110px;
-  }
-
-  .btnclass{
-    margin-top: 32px;
-  }
-
-  span{
-    color: red;
-    font-size: 10px;
-    position: absolute;
-   }
-
-
-
+span {
+  color: red;
+  font-size: 10px;
+  position: absolute;
+}

@@ -6,12 +6,12 @@
   /* background-color:  rgb(255, 253, 253)	; */
   background: #f5f5f5;
   /* color:rgb(122, 92, 92) */
-  color:#3365fe;
-  font-family: Open Sans,sans-serif;
+  color: #3365fe;
+  font-family: Open Sans, sans-serif;
 }
 
 .main-content {
-  padding:20px;
+  padding: 20px;
 }
 .toolbar-spacer {
   flex: 1 1 auto;
@@ -19,14 +19,14 @@
 mat-sidenav-content {
   height: 100vh;
 }
-  .myCSSclass{
+.myCSSclass {
   margin-left: 65px !important;
 }
-.docIcon{
+.docIcon {
   /* background: url(../../../assets/newicon.jpg); */
-    height: 50px;
-    width: 100%;
-    display: inline-block;
+  height: 50px;
+  width: 100%;
+  display: inline-block;
 }
 .avatar {
   vertical-align: middle;
@@ -40,29 +40,29 @@ mat-sidenav-content {
 } */
 
 .togglebutton {
-  border:1px solid blue
+  border: 1px solid blue;
 }
-.bottomStick{
+.bottomStick {
   /* border-top:1px solid green;border-bottom:1px solid green; */
-  position:absolute; bottom:0
+  position: absolute;
+  bottom: 0;
 }
-.bottomRelative{
-  position:relative;
+.bottomRelative {
+  position: relative;
 }
-.treenode{
-  padding-left: 27px !important
+.treenode {
+  padding-left: 27px !important;
 }
 .active-link {
   /* //background: #0b9444; */
   background: #262a33;
   color: #fff;
   opacity: 1;
-
 }
 a:hover {
   text-decoration: none;
-  color:green;
+  color: green;
 }
-.treenode:hover{
+.treenode:hover {
   color: mediumturquoise;
 }
