@@ -68,7 +68,9 @@
     top: 0;
     opacity: 0;
   }
-
+  .card-body {
+    margin-left: 110px;
+  }
   .form-control{
     width: 300px;
   }
@@ -78,5 +80,7 @@
     position: absolute;
    }
 
-
+.row-cls{
+  margin-top: 20px;
+}
 

@@ -1,23 +1,14 @@
 <mat-grid-list cols="4" rowHeight="100%">
   <mat-sidenav-container fullscreen>
-    <mat-sidenav
-      #sidenav
-      mode="side"
-      opened
-      position="start"
-      *ngIf="isLoggedIn | async"
-      [@onSideNavChange]="sideNavState ? 'close' : 'open'"
-    >
-      <h1
-        style="text-align:center;color:rgba(0,0,0,0.5)"
-        *ngIf="sideNavState; else elseblock"
-      >
+    <mat-sidenav #sidenav mode="side" opened position="start" *ngIf="isLoggedIn | async"
+      [@onSideNavChange]="sideNavState ? 'close' : 'open'">
+      <h1 style="text-align:center;color:rgba(0,0,0,0.5)" *ngIf="sideNavState; else elseblock">
         B
       </h1>
-      <ng-template #elseblock
-        ><h1 style="text-align:center;color:rgba(0,0,0,0.5)">
-          <img src="../../../assets/bellurbislogo.png" /></h1
-      ></ng-template>
+      <ng-template #elseblock>
+        <h1 style="text-align:center;color:rgba(0,0,0,0.5)">
+          <img src="../../../assets/bellurbislogo.png" /></h1>
+      </ng-template>
       <mat-divider></mat-divider>
       <!-- <mat-nav-list>
       <h3 matSubheader><mat-icon>home</mat-icon>
@@ -30,37 +21,21 @@
         </mat-nav-list> -->
       <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
         <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
-          <a
-            mat-icon-button
-            routerLink="{{ node.navigate_url }}"
-            routerLinkActive="active"
-          >
+          <a mat-icon-button routerLink="{{ node.navigate_url }}" routerLinkActive="active">
             <mat-icon style="padding-right:10px;">{{ node.icon }}</mat-icon>
-            <span [@animateText]="linkText ? 'show' : 'hide'"> </span
-            >{{ node.name }}
+            <span [@animateText]="linkText ? 'show' : 'hide'"> </span>{{ node.name }}
           </a>
         </mat-tree-node>
 
-        <mat-tree-node
-          class="treenode"
-          *matTreeNodeDef="let node; when: hasChild"
-          matTreeNodePadding
-        >
+        <mat-tree-node class="treenode" *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
           <button *ngIf="!node.active; else elseblock" mat-icon-button>
             <mat-icon style="padding-right:10px;">{{ node.icon }}</mat-icon>
-            <span [@animateText]="linkText ? 'show' : 'hide'"> </span
-            >{{ node.name }}
+            <span [@animateText]="linkText ? 'show' : 'hide'"> </span>{{ node.name }}
           </button>
           <ng-template #elseblock>
-            <button
-              class="btn"
-              mat-icon-button
-              matTreeNodeToggle
-              [attr.aria-label]="'toggle ' + node.name"
-            >
+            <button class="btn" mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.name">
               <mat-icon style="padding-right:10px;">{{ node.icon }}</mat-icon>
-              <span [@animateText]="linkText ? 'show' : 'hide'"> </span
-              >{{ node.name }}
+              <span [@animateText]="linkText ? 'show' : 'hide'"> </span>{{ node.name }}
               <mat-icon>
                 {{
                   treeControl.isExpanded(node) ? "expand_more" : "chevron_right"
@@ -80,18 +55,9 @@
     </mat-sidenav>
     <mat-sidenav-content #myclass class="myCSSclass">
       <div>
-        <mat-toolbar
-          style="width:auto"
-          color="primary"
-          *ngIf="isLoggedIn | async"
-          [@onMainContentChange]="sideNavState ? 'close' : 'open'"
-        >
-          <button
-            mat-mini-fab
-            (click)="toggleSidenav()"
-            color="warn"
-            style="margin: 10px;"
-          >
+        <mat-toolbar style="width:auto" *ngIf="isLoggedIn | async"
+          [@onMainContentChange]="sideNavState ? 'close' : 'open'">
+          <button mat-mini-fab (click)="toggleSidenav()" color="warn" style="margin: 10px;">
             <mat-icon aria-label="Menu">menu</mat-icon>
           </button>
           <span>DOCUMENT APPROVEL SYSTEM</span>
@@ -100,30 +66,17 @@
             <img class="avatar" src="../../../assets/img_avatar.png" />
           </button>
           <mat-menu #menu="matMenu">
-            <button
-              class="mat-menu-item"
-              mat-menu-item=""
-              (click)="logout()"
-              role="menuitem"
-              tabindex="0"
-              aria-disabled="false"
-            >
-              <mat-icon
-                class="mat-icon notranslate material-icons mat-icon-no-color"
-                role="img"
-                aria-hidden="true"
-                >exit_to_app</mat-icon
-              >
+            <button class="mat-menu-item" mat-menu-item="" (click)="logout()" role="menuitem" tabindex="0"
+              aria-disabled="false">
+              <mat-icon class="mat-icon notranslate material-icons mat-icon-no-color" role="img" aria-hidden="true">
+                exit_to_app</mat-icon>
               Sign Out
               <div class="mat-menu-ripple mat-ripple" matripple=""></div>
             </button>
           </mat-menu>
         </mat-toolbar>
       </div>
-      <div
-        class="main-content"
-        [@onMainContentChange]="sideNavState ? 'close' : 'open'"
-      >
+      <div class="main-content" [@onMainContentChange]="sideNavState ? 'close' : 'open'">
         <div class="page-content">
           <div class="page-content-wrap">
             <router-outlet></router-outlet>
