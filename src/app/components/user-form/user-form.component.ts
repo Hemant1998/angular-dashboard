@@ -23,13 +23,16 @@ export class UserFormComponent implements OnInit {
  userobj:any={};
  action:boolean;
  userId:number;
+ view :boolean;
  constructor(private formBuilder: FormBuilder,
   private service:DataServiceService,
-  private route:ActivatedRoute) { }
+  private route:ActivatedRoute,
+  private router:Router) { }
 
  ngOnInit() {
-   this.getQueryParam();
+
    this.createForm();
+   this.getQueryParam();
    this.filteredOptions = this.formGroup.get('user_role').valueChanges
    .pipe(
      startWith(''),
@@ -126,12 +129,12 @@ export class UserFormComponent implements OnInit {
    if(this.action){
       this.userobj.id=this.userId;
       this.service.updateUser(this.userobj).subscribe(m=>{
-        console.log("success");
+       alert("User Updated!");
       });
    }
       else{
        this.service.saveUser(this.userobj).subscribe(m=>{
-     console.log("success");
+     alert("User Saved!");
    });
   }
   }
@@ -139,16 +142,24 @@ export class UserFormComponent implements OnInit {
     console.log(message);
     this.receivedChildMessage = message;
   }
-  getdata(){
-    this.service.getData().subscribe(m=>{
-      console.log("list");
-    })
+  goBack(){
+    this.router.navigate(["/admin"]);
   }
   getQueryParam(){
     this.route.queryParams.subscribe(
       (params: ParamMap) => {
         if(params['columnName']=='edit')
           this.action=true;
+          if(params['columnName']=='view'){
+          this.view=true;
+          this.formGroup.controls['user_name'].disable();
+            this.formGroup.controls['first_name'].disable();
+            this.formGroup.controls['password'].disable();
+            this.formGroup.controls['email'].disable();
+            this.formGroup.controls['last_name'].disable();
+            this.formGroup.controls['contact'].disable();
+            this.formGroup.controls['user_role'].disable();
+          }
           this.userId=parseInt(params['columnValue']);
           this.service.getUserById(params['columnValue']).subscribe(m=>{
             this.formGroup.controls['user_name'].setValue(m.username);

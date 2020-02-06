@@ -9,6 +9,7 @@
     (focus)="toggleListDisplay(1)"
     placeholder="Select one..."
     [ngClass]="{ error: showError }"
+    [disabled]="view"
   />
   <div class="combobox-options" *ngIf="!listHidden">
     <list-item

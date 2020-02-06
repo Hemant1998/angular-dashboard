@@ -7,6 +7,7 @@ import { Component, OnInit, Input, EventEmitter, Output } from "@angular/core";
 })
 export class ComboBoxComponent implements OnInit {
   @Input() list: string[];
+  @Input() view:boolean;
   @Output() messageToEmit = new EventEmitter<string>();
   // two way binding for input text
   inputItem = "";

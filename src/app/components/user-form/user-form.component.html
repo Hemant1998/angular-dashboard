@@ -10,7 +10,7 @@
             <div class="col-6">
           <div class="form-group">
               <label for="inputName">User Name</label>
-              <input type="text" class="form-control" formControlName="user_name" placeholder="User Name">
+              <input type="text" class="form-control" [disabled]="true" formControlName="user_name" placeholder="User Name">
               <span *ngIf="!formGroup.controls['user_name'].valid && formGroup.controls['user_name'].touched">
                 Field is required
               </span>
@@ -33,8 +33,8 @@
 
       <div class="col">
         <div class="form-group">
-          <label for="inputName">Re-Password</label>
-          <input type="text" class="form-control" formControlName="re_password" placeholder="Re-Password">
+          <label for="inputName" [hidden]="view">Re-Password</label>
+          <input type="text" class="form-control" [hidden]="view" formControlName="re_password" placeholder="Re-Password">
         </div>
       </div>
       </div>
@@ -95,21 +95,21 @@
   <div class="form-group">
     <label>Role</label>
     <input type="hidden" formControlName="user_role"/>
-    <app-combo-box  [list]="role" (messageToEmit)="getMessage($event)" ></app-combo-box>
+    <app-combo-box  [view]="view" [list]="role" (messageToEmit)="getMessage($event)" ></app-combo-box>
 
   </div>
   </div>
   </div>
 
-      <div class="row" style="margin-left: -163px">
+      <div class="row r-cls" >
         <div class="col-md-6">
           <div class="form-group">
-              <button type="submit" class="btn btn-success  float-right" [disabled]="!formGroup.valid" >Save</button>
+              <button type="submit" class="btn btn-success  float-right" [hidden]="view" [disabled]="!formGroup.valid" >Save</button>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
-            <button type="submit" class="btn btn-success float-left" (click)="getdata()">Cancel</button>
+            <button type="submit" class="btn btn-success float-left" (click)="goBack()">Cancel</button>
         </div>
         </div>
       </div>

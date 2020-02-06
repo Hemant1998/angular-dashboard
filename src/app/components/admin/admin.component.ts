@@ -48,8 +48,9 @@ export class AdminComponent implements OnInit {
   gotToDesc(event) {
     console.log(event);
     let queryParams = event;
-    if(event.columnName=='edit')
+    if(event.columnName=='edit' || event.columnName=='view')
         this.router.navigate(["/userForm"], { queryParams: event });
+
     // if(event.columnName=='delete'){
     //   this.service.deleteUser(event.columnValue).subscribe(res=>{
     //            console.log('sucess');

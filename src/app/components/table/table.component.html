@@ -45,7 +45,7 @@
           <td mat-cell *matCellDef="let element">
             <span *ngIf="!column.action; else elseBlock">
               <a (click)="
-                  getColumnValue(element[column.columnName], column.columnName)
+              getColumnValue(element.id, 'view')
                 " *ngIf="column.hyperlink; else elseblock">
                 <span class="link-tag"> {{ element[column.columnName] }}</span>
               </a>
