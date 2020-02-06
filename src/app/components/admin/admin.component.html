@@ -11,10 +11,6 @@
   </div>
 </div>
 <div class="table">
-  <app-table
-    [dataUrl]="grid_url"
-    [headerColumns]="Columns"
-    (outData)="gotToDesc($event)"
-  >
+  <app-table [dataUrl]="grid_url" [delete_url]="delete_url" [headerColumns]="Columns" (outData)="gotToDesc($event)">
   </app-table>
 </div>

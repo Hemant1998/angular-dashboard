@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
+import { DataServiceService } from 'src/app/services/data-service.service';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
  selector: 'app-user-form',
@@ -17,23 +19,16 @@ export class UserFormComponent implements OnInit {
  public searchrole: FormControl = new FormControl();
  role: string[]=['Admin','Author'];
  filteredOptions: Observable<string[]>;
-
- options = [
-   {
-     display: 'admin',
-     value: '1'
-   }, {
-     display: 'author',
-     value: '2'
-   }
- ];
- profileForm = new FormGroup({
-   selected: new FormControl(['1', '2', '3'])
- });
-
- constructor(private formBuilder: FormBuilder) { }
+ receivedChildMessage: string;
+ userobj:any={};
+ action:boolean;
+ userId:number;
+ constructor(private formBuilder: FormBuilder,
+  private service:DataServiceService,
+  private route:ActivatedRoute) { }
 
  ngOnInit() {
+   this.getQueryParam();
    this.createForm();
    this.filteredOptions = this.formGroup.get('user_role').valueChanges
    .pipe(
@@ -59,7 +54,7 @@ export class UserFormComponent implements OnInit {
      'last_name': [null, Validators.required],
      'email':[null, [Validators.required, Validators.pattern(emailregex)]],
      'contact':[null,[Validators.required, Validators.pattern(mobnum)]],
-     'user_role':[null, Validators.required]
+     'user_role':' '
    });
  }
 
@@ -121,6 +116,46 @@ export class UserFormComponent implements OnInit {
  //       this.formGroup.get('re_password').hasError('requirements') ? 'password is mismatch' : '';
  // }
 
-
-
+  onSubmit(){
+    this.formGroup.controls['user_role'].setValue(this.receivedChildMessage);
+   this.userobj.username=this.formGroup.get('user_name').value;
+   this.userobj.password=this.formGroup.get('password').value;
+   this.userobj.firstName=this.formGroup.get('first_name').value;
+   this.userobj.lastName=this.formGroup.get('last_name').value;
+   this.userobj.roleName=this.formGroup.get('user_role').value;
+   if(this.action){
+      this.userobj.id=this.userId;
+      this.service.updateUser(this.userobj).subscribe(m=>{
+        console.log("success");
+      });
+   }
+      else{
+       this.service.saveUser(this.userobj).subscribe(m=>{
+     console.log("success");
+   });
+  }
+  }
+  getMessage(message: string) {
+    console.log(message);
+    this.receivedChildMessage = message;
+  }
+  getdata(){
+    this.service.getData().subscribe(m=>{
+      console.log("list");
+    })
+  }
+  getQueryParam(){
+    this.route.queryParams.subscribe(
+      (params: ParamMap) => {
+        if(params['columnName']=='edit')
+          this.action=true;
+          this.userId=parseInt(params['columnValue']);
+          this.service.getUserById(params['columnValue']).subscribe(m=>{
+            this.formGroup.controls['user_name'].setValue(m.username);
+            this.formGroup.controls['first_name'].setValue(m.firstName);
+            this.formGroup.controls['last_name'].setValue(m.lastName);
+        });
+      }
+    )
+  }
 }

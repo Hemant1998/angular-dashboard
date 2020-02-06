@@ -12,6 +12,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { DataServiceService } from 'src/app/services/data-service.service';
+import { createInjectable } from '@angular/compiler/src/core';
 var tableData;
 @Component({
   selector: 'app-table',
@@ -44,6 +45,7 @@ export class TableComponent  {
     @Input('dataUrl') dataUrl: string;
     @Input('headerColumns') headerColumns: any[];
     @Input('search') searchEnable: boolean=false;
+    @Input('delete_url') delete_url:string;
     @Output() outData = new EventEmitter();
 
 
@@ -81,32 +83,36 @@ export class TableComponent  {
 
       console.log(this.filterString);
 
+      this.createTable();
 
+
+    }
+    createTable(){
       merge(this.sort.sortChange, this.paginator.page)
-        .pipe(
-          startWith({}),
-          switchMap(() => {
-            this.isLoadingResults = true;
-            return this.exampleDatabase!.getRepoIssues(this.dataUrl,
-              this.sort.active, this.sort.direction, this.paginator.pageIndex, this.paginator.pageSize,this.filterString);
-          }),
-          map(data => {
-            // Flip flag to show that loading has finished.
-            this.isLoadingResults = false;
-            this.isRateLimitReached = false;
-            this.resultsLength = data.totalElements;
-            this.totalPagesNumber = data.totalPages;
-            this.dataSource.paginator = this.paginator;
-            return data.content;
-          }),
-          catchError(() => {
-            this.isLoadingResults = false;
-            // Catch if the GitHub API has reached its rate limit. Return empty data.
-            this.isRateLimitReached = true;
-            return observableOf([]);
-          })
-        ).subscribe(data => this.dataSource = data);
-
+      .pipe(
+        startWith({}),
+        switchMap(() => {
+          this.isLoadingResults = true;
+          return this.exampleDatabase!.getRepoIssues(this.dataUrl,
+            this.sort.active, this.sort.direction, this.paginator.pageIndex, this.paginator.pageSize,this.filterString);
+        }),
+        map(data => {
+          // Flip flag to show that loading has finished.
+          this.isLoadingResults = false;
+          this.isRateLimitReached = false;
+          this.resultsLength = data.totalElements;
+          this.totalPagesNumber = data.totalPages;
+          this.dataSource.paginator = this.paginator;
+          console.log(data);
+          return data;
+        }),
+        catchError(() => {
+          this.isLoadingResults = false;
+          // Catch if the GitHub API has reached its rate limit. Return empty data.
+          this.isRateLimitReached = true;
+          return observableOf([]);
+        })
+      ).subscribe(data => this.dataSource = data);
     }
     selection = new SelectionModel<GithubIssue>(true, []);
 
@@ -151,6 +157,14 @@ export class TableComponent  {
     getColumnValue(id, columnName) {
 
       this.outData.emit({ columnName: columnName, columnValue: id })
+      if(columnName=='delete'){
+        if (confirm("Do you want to delete the user") == true) {
+      this._service.deleteUser(id,this.delete_url).subscribe(res=>{
+        console.log('sucess');
+        this.createTable();
+    });
+  }
+  }
     }
     applyFilter(filterValue: string) {
      // this.dataSource.filter = filterValue.trim().toLowerCase();

@@ -9,13 +9,13 @@ import { DataServiceService } from "src/app/services/data-service.service";
 })
 export class AdminComponent implements OnInit {
   constructor(private service: DataServiceService, private router: Router) {
-    this.grid_url = "http://192.168.1.128:8086/getAllModelWithPage/1";
+    this.grid_url = "http://localhost:8080/users";
   }
   grid_url: string = " ";
-
+  delete_url:string="user";
   Columns: any[] = [
     {
-      columnName: "userName",
+      columnName: "username",
       displayName: "User Name",
       active: true,
       hyperlink: true,
@@ -27,14 +27,36 @@ export class AdminComponent implements OnInit {
       active: true,
       hyperlink: false,
       action: false
+    },
+    {
+      columnName: "lastName",
+      displayName: "Last Name",
+      active: true,
+      hyperlink: false,
+      action: false
+    },
+    {
+      columnName: "id",
+      displayName: "Action",
+      active: true,
+      hyperlink: false,
+      action: true
     }
     // , { 'columnName': 'id', 'displayName': 'Action', "active": true, "hyperlink": false, "action": true }
   ];
-  ngOnInit() {}
+  ngOnInit() { }
   gotToDesc(event) {
     console.log(event);
     let queryParams = event;
-    //this.router.navigateByUrl('/view-asset', { state: event });
-    this.router.navigate(["/view-asset"], { queryParams: event });
+    if(event.columnName=='edit')
+        this.router.navigate(["/userForm"], { queryParams: event });
+    // if(event.columnName=='delete'){
+    //   this.service.deleteUser(event.columnValue).subscribe(res=>{
+    //            console.log('sucess');
+    //        });
+    //        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+
+    // }
+
   }
 }

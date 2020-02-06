@@ -1,12 +1,14 @@
 .combobox {
   margin: auto;
-  width: 340px;
+  width: 260px;
+
 }
 
 .combobox-input {
   width: 330px;
   padding: 10px;
   font-size: 18px;
+
 }
 
 .combobox-input:focus {

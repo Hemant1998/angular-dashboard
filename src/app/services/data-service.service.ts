@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -40,5 +41,18 @@ export class DataServiceService {
   }
   getDatas(): Observable<any> {
     return this.subject.asObservable();
+  }
+
+  saveUser(obj:Object): Observable<any> {
+    return this.http.post<any>(this.api_url+"/user", obj);
+  }
+  getUserById(id:number):Observable<any> {
+    return this.http.get(this.api_url + '/user/'+id);
+  }
+  updateUser(obj:Object): Observable<any> {
+    return this.http.put<any>(this.api_url+"/user", obj);
+  }
+  deleteUser(id:number,name:string):Observable<any> {
+    return this.http.delete(this.api_url + '/'+name+'/'+id);
   }
 }
