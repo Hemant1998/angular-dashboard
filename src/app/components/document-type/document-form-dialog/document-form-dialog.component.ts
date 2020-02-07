@@ -15,13 +15,14 @@ export class DocumentFormDialogComponent implements OnInit {
   formGroup: FormGroup;
   titleAlert: string = 'This field is required';
   post: any = '';
-  field_type: string[]=['Integer','String','Float','Boolean']
+  field_type: string[]=[];
   dataElements:any;
   error_msg:string;
   status=false;
   seq_status=false;
   receivedChildMessage: string;
-
+  fieldTypeObj:any={};
+  editFieldType:string="";
   getMessage(message: string) {
     this.receivedChildMessage = message;
   }
@@ -31,12 +32,18 @@ export class DocumentFormDialogComponent implements OnInit {
     }
 
   ngOnInit() {
-
-
+  this.dataService.getFieldTypes().subscribe(res=>{
+    this.fieldTypeObj=res;
+    this.fieldTypeObj.forEach(element => {
+      this.field_type.push(element.displayName)
+    });
+  })
 
    this.createForm();
-    if(this.data['content_with_id']!=null)
+    if(this.data['content_with_id']!=null){
+      this.editFieldType=this.data['content_with_id'].field_type;
     this.getData();
+    }
     // this.formGroup.controls['field_id'].setValue(this.data['content'].field_id);
   }
 

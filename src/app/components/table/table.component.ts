@@ -155,10 +155,10 @@ export class TableComponent  {
 
     }
     getColumnValue(id, columnName) {
-
+      if(columnName=='edit' || columnName=='view' )
       this.outData.emit({ columnName: columnName, columnValue: id })
       if(columnName=='delete'){
-        if (confirm("Do you want to delete the user") == true) {
+        if (confirm("Do you want to delete the task") == true) {
       this._service.deleteUser(id,this.delete_url).subscribe(res=>{
         console.log('sucess');
         this.createTable();

@@ -10,14 +10,21 @@ import { Router } from '@angular/router';
 export class DocumentTypeListingComponent implements OnInit {
 
   constructor(private service: DataServiceService, private router: Router ) {
-    this.grid_url =  'http://192.168.1.128:8086/getAllModelWithPage/1'
+    this.grid_url =  'http://localhost:8080/documentTypes'
   }
   grid_url: string = " ";
-
+  delete_url: string = "documentType";
   Columns: any[] = [
 
-     { 'columnName': 'userName', 'displayName': 'User Name', "active": true, "hyperlink": true, "action": false }
-    , { 'columnName': 'firstName', 'displayName': 'First Name', "active": true, "hyperlink": false, "action": false }
+     { 'columnName': 'documentTypeName', 'Doc Type Name': 'User Name', "active": true, "hyperlink": true, "action": false }
+    , { 'columnName': 'description', 'displayName': 'Discription', "active": true, "hyperlink": false, "action": false }
+    ,{
+      'columnName': "id",
+      'displayName': "Action",
+      'active': true,
+      'hyperlink': false,
+      'action': true
+    }
     // , { 'columnName': 'id', 'displayName': 'Action', "active": true, "hyperlink": false, "action": true }
   ];
   ngOnInit() {
@@ -26,6 +33,6 @@ export class DocumentTypeListingComponent implements OnInit {
     console.log(event);
     let queryParams= event;
     //this.router.navigateByUrl('/view-asset', { state: event });
-    this.router.navigate(['/view-asset'], { queryParams: event });
+    this.router.navigate(['/document-form'], { queryParams: event });
   }
 }

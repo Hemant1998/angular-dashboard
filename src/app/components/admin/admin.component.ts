@@ -12,7 +12,7 @@ export class AdminComponent implements OnInit {
     this.grid_url = "http://localhost:8080/users";
   }
   grid_url: string = " ";
-  delete_url:string="user";
+  delete_url: string = "user";
   Columns: any[] = [
     {
       columnName: "username",
@@ -48,8 +48,8 @@ export class AdminComponent implements OnInit {
   gotToDesc(event) {
     console.log(event);
     let queryParams = event;
-    if(event.columnName=='edit' || event.columnName=='view')
-        this.router.navigate(["/userForm"], { queryParams: event });
+    if (event.columnName == 'edit' || event.columnName == 'view')
+      this.router.navigate(["/userForm"], { queryParams: event });
 
     // if(event.columnName=='delete'){
     //   this.service.deleteUser(event.columnValue).subscribe(res=>{

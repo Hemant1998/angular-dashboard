@@ -45,7 +45,7 @@
       <div class="form-group">
         <label>Field Type</label>
         <input type="hidden" formControlName="field_type"/>
-        <app-combo-box  [list]="field_type" (messageToEmit)="getMessage($event)" ></app-combo-box>
+        <app-combo-box [editFieldType]="editFieldType" [list]="field_type" (messageToEmit)="getMessage($event)" ></app-combo-box>
       </div>
     </div>
     </div>

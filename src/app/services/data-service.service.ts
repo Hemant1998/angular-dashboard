@@ -55,4 +55,17 @@ export class DataServiceService {
   deleteUser(id:number,name:string):Observable<any> {
     return this.http.delete(this.api_url + '/'+name+'/'+id);
   }
+  getFieldTypes():Observable<any>{
+    console.log("inside service");
+    return this.http.get(this.api_url +"/fieldTypes");
+  }
+  saveDocumentType(obj:Object): Observable<any> {
+    return this.http.post<any>(this.api_url+"/documentType", obj);
+  }
+  getDocTypeById(id:number):Observable<any> {
+    return this.http.get(this.api_url + '/documentType/'+id);
+  }
+  updateDocTypeById(obj:Object): Observable<any> {
+    return this.http.put<any>(this.api_url+"/documentType", obj);
+  }
 }

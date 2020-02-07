@@ -13,6 +13,7 @@ import {
 import { DocumentFormDialogComponent } from "../document-form-dialog/document-form-dialog.component";
 import { BehaviorSubject } from "rxjs";
 import { DataServiceService } from "src/app/services/data-service.service";
+import { Router, ParamMap, ActivatedRoute } from '@angular/router';
 @Component({
   selector: "app-document-form",
   templateUrl: "./document-form.component.html",
@@ -34,15 +35,27 @@ export class DocumentFormComponent implements OnInit {
   dataSource = new BehaviorSubject([]);
   flag: Boolean;
   id: number;
+  fieldTypeObj:any;
+  edit:boolean;
+  editId:number;
+  view:boolean;
   //dataSource = this.ELEMENT_DATA;
   constructor(
     private formBuilder: FormBuilder,
     public dialog: MatDialog,
-    private dataService: DataServiceService
-  ) {}
+    private dataService: DataServiceService,
+    private route:ActivatedRoute,
+    private router:Router
+  ) { }
 
   ngOnInit() {
     this.createForm();
+    this.getQueryParam();
+
+    this.dataService.getFieldTypes().subscribe(res=>{
+
+      this.fieldTypeObj=res;
+    })
   }
 
   createForm() {
@@ -67,9 +80,6 @@ export class DocumentFormComponent implements OnInit {
     });
     this.flag = false;
     dialogRef.afterClosed().subscribe(result => {
-      console.log("field_type");
-      console.log(result.value.field_type);
-
       for (let i in this.ELEMENT_DATA) {
         if (this.ELEMENT_DATA[i].field_id == result.value.field_id)
           this.flag = true;
@@ -86,6 +96,7 @@ export class DocumentFormComponent implements OnInit {
         }
 
       this.dataSource.next(this.ELEMENT_DATA);
+      console.log(this.dataSource);
     });
   }
   deleteElement(fieldId: any) {
@@ -96,13 +107,89 @@ export class DocumentFormComponent implements OnInit {
 
     this.dataSource.next(this.ELEMENT_DATA);
   }
+
+  onSubmit() {
+
+    let objArr: field[] = [];
+    let fieldType;
+
+    this.ELEMENT_DATA.forEach((value, i) => {
+      this.fieldTypeObj.forEach(element => {
+        if(element.displayName==value.field_type) fieldType=element.lookupKey;
+      });
+      let objdata:field={
+        fieldLabel:value.field_label,
+        fieldType:value.field_type,
+        fieldId:value.field_id
+     }
+      objArr.push(objdata);
+    });
+    let obj: any = {
+      documentTypeName:this.formGroup.controls['doc_type'].value,
+      description:this.formGroup.controls['discription'].value,
+      fields:objArr
+    };
+    if(this.edit){
+      obj.id=this.editId;
+      this.dataService.updateDocTypeById(obj).subscribe(res=>{
+          alert("Document Type Updated!");
+      })
+    }
+    else{
+    this.dataService.saveDocumentType(obj).subscribe(res=>{
+        console.log(res);
+        alert("Document Type Saved!");
+    })
+  }
+  }
+  getQueryParam(){
+    let objArr:Doc_data[]=[];
+    this.route.queryParams.subscribe(
+      (params: ParamMap) => {
+        if(params['columnName']=='edit') {
+          this.edit=true;
+          this.editId=params['columnValue'];
+        }
+        if(params['columnName']=='view'){
+          this.view=true;
+          this.formGroup.controls['doc_type'].disable();
+          this.formGroup.controls['discription'].disable();
+        }
+            this.dataService.getDocTypeById(params['columnValue']).subscribe(res=>{
+                console.log(res);
+                this.formGroup.controls['doc_type'].setValue(res.documentTypeName);
+                this.formGroup.controls['discription'].setValue(res.description);
+                res.fields.forEach(data=>{
+                  let obj:any={
+                    field_id:data.fieldId,
+                    field_label:data.fieldLabel,
+                    field_sequence:"",
+                    field_type:data.fieldType
+                  }
+                  this.ELEMENT_DATA.push(obj);
+                });
+                this.dataSource.next(this.ELEMENT_DATA);
+            })
+      }
+
+    )
+  }
+  goback(){
+    this.router.navigate(["/document-type-listing"]);
+  }
 }
 
 export interface Doc_data {
-  id: number;
+  id?: number;
   field_id: string;
   field_label: string;
   field_sequence: number;
   field_type: string;
-  action: any;
+  action?: any;
+}
+export class field {
+  id?: string;
+  fieldLabel: string;
+  fieldType: string;
+  fieldId: string;
 }
