@@ -3,23 +3,16 @@
     <h3 class="mb-0">Create Document Type</h3>
   </div>
   <div class="card-body">
-    <form class="form" role="form" [formGroup]="formGroup"  autocomplete="off">
+    <form class="form" role="form" [formGroup]="formGroup" autocomplete="off">
       <div class="row">
         <div class="col">
           <div class="form-group">
             <label for="inputName">Document Type</label>
-            <input
-              type="text"
-              class="form-control"
-              formControlName="doc_type"
-              placeholder="Document Type"
-            />
-            <span
-              *ngIf="
+            <input type="text" class="form-control" formControlName="doc_type" placeholder="Document Type" />
+            <span *ngIf="
                 !formGroup.controls['doc_type'].valid &&
                 formGroup.controls['doc_type'].touched
-              "
-            >
+              ">
               Field is required
             </span>
           </div>
@@ -28,28 +21,33 @@
         <div class="col">
           <div class="form-group">
             <label for="inputName">Description</label>
-            <textarea
-              class="form-control"
-              formControlName="discription"
-              placeholder="Description"
-            ></textarea>
-            <span
-              *ngIf="
+            <textarea class="form-control" formControlName="discription" placeholder="Description"></textarea>
+            <span *ngIf="
                 !formGroup.controls['discription'].valid &&
                 formGroup.controls['discription'].touched
-              "
-            >
+              ">
               Field is required
             </span>
           </div>
         </div>
       </div>
       <div class="row">
+      <div class="col">
+        <div class="form-group">
+          <label for="inputName">Document Type Code</label>
+            <input type="text" class="form-control" formControlName="documentTypeCode" placeholder="Document Type Code" />
+            <span *ngIf="
+                !formGroup.controls['documentTypeCode'].valid &&
+                formGroup.controls['documentTypeCode'].touched
+              ">
+              Field is required
+            </span>
+        </div>
+      </div>
+      </div>
+      <div class="row">
         <div class="col-md-10" style="margin-left: 67px">
-          <button
-            class="btn btn-success float-right" [hidden]="view"
-            (click)="opendialog(null)"
-          >
+          <button class="btn btn-success float-right" [hidden]="view" (click)="opendialog(null)">
             Add Field
           </button>
         </div>
@@ -88,8 +86,10 @@
             <td mat-cell *matCellDef="let element">{{ element.field_type }}</td>
           </ng-container>
 
-          <ng-container matColumnDef="action" >
-            <th mat-header-cell *matHeaderCellDef><p *ngIf="!view">Action</p></th>
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef>
+              <p *ngIf="!view">Action</p>
+            </th>
             <td mat-cell *matCellDef="let element">
               <button mat-icon-button *ngIf="!view">
                 <mat-icon (click)="opendialog(element)">edit</mat-icon>
@@ -108,7 +108,8 @@
       <div class="row btnclass">
         <div class="col-md-6">
           <div class="form-group">
-            <button type="submit" (click)="onSubmit()" [hidden]="view" class="btn btn-success  float-right" [disabled]="!formGroup.valid">
+            <button type="submit" (click)="onSubmit()" [hidden]="view" class="btn btn-success  float-right"
+              [disabled]="!formGroup.valid">
               Save
             </button>
           </div>

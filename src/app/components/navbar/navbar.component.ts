@@ -180,7 +180,7 @@ const TREE_DATA: FoodNode[] = [
     icon: "check_box_outline_blank",
     active: true,
     children: [
-      { name: "List Doc Template", navigate_url: "#", icon: "list" },
+      { name: "List Doc Template", navigate_url: "document-template-listing", icon: "list" },
       {
         name: "New Doc Template",
         navigate_url: "document-template-form",
@@ -198,7 +198,7 @@ const TREE_DATA: FoodNode[] = [
   {
     name: "Documents",
     active: false,
-    navigate_url: "#",
+    navigate_url: "document-listing",
     icon: "work",
     children: [{ name: "List Doc Template", navigate_url: "#", icon: "list" }]
   }

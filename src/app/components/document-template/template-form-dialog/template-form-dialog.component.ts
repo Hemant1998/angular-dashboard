@@ -15,11 +15,14 @@ export class TemplateFormDialogComponent implements OnInit {
   formGroup: FormGroup;
   titleAlert: string = 'This field is required';
   post: any = '';
-  field_type: string[]=['Integer','String','Float','Boolean']
+  field_type: string[]=[];
   dataElements:any;
   error_msg:string;
   status=false;
   seq_status=false;
+  editFieldType="";
+  receivedChildMessage:string;
+  fieldTypeObj;
   constructor(private formBuilder: FormBuilder, public dialogRef: MatDialogRef<TemplateFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,private dataService:DataServiceService) {
       this.dataElements=this.data['content'];
@@ -27,26 +30,34 @@ export class TemplateFormDialogComponent implements OnInit {
 
   ngOnInit() {
 
-
+    this.dataService.getFieldTypes().subscribe(res=>{
+      this.fieldTypeObj=res;
+      this.fieldTypeObj.forEach(element => {
+        this.field_type.push(element.displayName)
+      });
+    })
 
    this.createForm();
     if(this.data['content_with_id']!=null)
     this.getData();
     // this.formGroup.controls['field_id'].setValue(this.data['content'].field_id);
   }
-
+  getMessage(message: string) {
+    this.receivedChildMessage = message;
+  }
   createForm() {
     this.formGroup = this.formBuilder.group({
       field_id: [null, [Validators.required,this.validation]],
       field_label: [null, Validators.required],
       field_sequence: [null, [Validators.required,this.validationSeq]],
-      field_type:[null, Validators.required],
+      field_type:'',
 
     });
   }
   dialogsubmit()
   {
     console.log("inside dialogsubmit");
+    this.formGroup.controls['field_type'].setValue(this.receivedChildMessage);
   }
 getData(){
  this.formGroup.controls['field_id'].setValue(this.data['content_with_id'].field_id);

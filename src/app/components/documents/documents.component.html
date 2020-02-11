@@ -1,9 +1,9 @@
 <div class="card card-outline-secondary">
   <div class="card-header">
-    <h3 class="mb-0">User List</h3>
+    <h3 class="mb-0">Documents List</h3>
   </div>
   <div class="card-body">
-<div class="row">
+<!-- <div class="row">
 
   <div class="col-md-10">
     <button type="submit" class="btn btn-success float-right">
@@ -15,7 +15,7 @@
       Create New
     </button>
   </div>
-</div>
+</div> -->
 <div class="table">
   <app-table [dataUrl]="grid_url" [delete_url]="delete_url" [headerColumns]="Columns" (outData)="gotToDesc($event)">
   </app-table>

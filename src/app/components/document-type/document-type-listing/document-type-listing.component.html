@@ -1,8 +1,14 @@
 <!-- <div class="form-save">
   <button mat-raised-button color="primary" type="submit" class="button" routerLink="/document-form">Create New</button>
 </div> -->
+<div class="card card-outline-secondary">
+  <div class="card-header">
+    <h3 class="mb-0">Document Type List</h3>
+  </div>
+  <div class="card-body">
 <div class="row">
   <div class="col-md-11">
+
     <button type="submit" class="btn btn-success float-right" routerLink="/document-form">
      Create New
     </button>
@@ -10,4 +16,6 @@
 </div>
 <div class="table">
   <app-table [dataUrl]="grid_url" [delete_url]="delete_url" [headerColumns]="Columns" (outData)="gotToDesc($event)"> </app-table>
+</div>
+</div>
 </div>

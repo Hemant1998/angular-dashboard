@@ -16,8 +16,9 @@ export class DocumentTypeListingComponent implements OnInit {
   delete_url: string = "documentType";
   Columns: any[] = [
 
-     { 'columnName': 'documentTypeName', 'Doc Type Name': 'User Name', "active": true, "hyperlink": true, "action": false }
-    , { 'columnName': 'description', 'displayName': 'Discription', "active": true, "hyperlink": false, "action": false }
+     { 'columnName': 'documentTypeName', 'displayName': 'Doc Type Name', "active": true, "hyperlink": true, "action": false }
+    , { 'columnName': 'description', 'displayName': 'Description', "active": true, "hyperlink": false, "action": false }
+    , { 'columnName': 'documentTypeCode', 'displayName': 'Doc Type Code', "active": true, "hyperlink": false, "action": false }
     ,{
       'columnName': "id",
       'displayName': "Action",

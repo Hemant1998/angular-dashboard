@@ -9,6 +9,8 @@ import { UserFormComponent } from './components/user-form/user-form.component';
 import { DocumentFormComponent } from './components/document-type/document-form/document-form.component';
 import { DocumentTypeListingComponent } from './components/document-type/document-type-listing/document-type-listing.component';
 import { TemplateFormComponent } from './components/document-template/template-form/template-form.component';
+import { TemplateListingComponent } from './components/document-template/template-listing/template-listing.component';
+import { DocumentsComponent } from './components/documents/documents.component';
 // import { AdminComponent } from './components/admin/admin.component';
 
 const routes: Routes = [
@@ -21,6 +23,8 @@ const routes: Routes = [
    ,{path : 'document-form',component: DocumentFormComponent, canActivate: [AuthguardServiceService]}
    ,{path : 'document-type-listing',component: DocumentTypeListingComponent, canActivate: [AuthguardServiceService]}
    ,{path : 'document-template-form',component: TemplateFormComponent, canActivate: [AuthguardServiceService]}
+   ,{path : 'document-template-listing',component: TemplateListingComponent, canActivate: [AuthguardServiceService]}
+   ,{path : 'document-listing',component: DocumentsComponent, canActivate: [AuthguardServiceService]}
 
    //{ path: 'register', component: RegisterComponent }
 ];

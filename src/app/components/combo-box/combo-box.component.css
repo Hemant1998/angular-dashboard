@@ -1,7 +1,7 @@
 .combobox {
   margin: auto;
   width: 260px;
-
+  /* position: absolute; */
 }
 
 .combobox-input {
@@ -46,7 +46,7 @@ list-item:hover {
   top: -1px;
 }
 .combobox {
-  position: fixed;
+  position: absolute;
   z-index: 9;
   background: white;
 }

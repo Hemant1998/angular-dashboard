@@ -35,7 +35,7 @@ export class DocumentFormComponent implements OnInit {
   dataSource = new BehaviorSubject([]);
   flag: Boolean;
   id: number;
-  fieldTypeObj:any;
+  fieldTypeObj:any[]=[];
   edit:boolean;
   editId:number;
   view:boolean;
@@ -46,22 +46,24 @@ export class DocumentFormComponent implements OnInit {
     private dataService: DataServiceService,
     private route:ActivatedRoute,
     private router:Router
-  ) { }
+  ) {
+    this.dataService.getFieldTypes().subscribe(res=>{
+      this.fieldTypeObj=res;
+    })
+   }
 
   ngOnInit() {
     this.createForm();
     this.getQueryParam();
 
-    this.dataService.getFieldTypes().subscribe(res=>{
 
-      this.fieldTypeObj=res;
-    })
   }
 
   createForm() {
     this.formGroup = this.formBuilder.group({
       doc_type: [null, Validators.required],
-      discription: [null, Validators.required]
+      discription: [null, Validators.required],
+      documentTypeCode:[null, Validators.required]
     });
   }
 
@@ -119,7 +121,8 @@ export class DocumentFormComponent implements OnInit {
       });
       let objdata:field={
         fieldLabel:value.field_label,
-        fieldType:value.field_type,
+        fieldType:fieldType,
+        id:value.id,
         fieldId:value.field_id
      }
       objArr.push(objdata);
@@ -127,8 +130,10 @@ export class DocumentFormComponent implements OnInit {
     let obj: any = {
       documentTypeName:this.formGroup.controls['doc_type'].value,
       description:this.formGroup.controls['discription'].value,
+      documentTypeCode:this.formGroup.controls['documentTypeCode'].value,
       fields:objArr
     };
+    console.log(obj);
     if(this.edit){
       obj.id=this.editId;
       this.dataService.updateDocTypeById(obj).subscribe(res=>{
@@ -159,12 +164,19 @@ export class DocumentFormComponent implements OnInit {
                 console.log(res);
                 this.formGroup.controls['doc_type'].setValue(res.documentTypeName);
                 this.formGroup.controls['discription'].setValue(res.description);
+                this.formGroup.controls['documentTypeCode'].setValue(res.documentTypeCode);
+                let ftype;
                 res.fields.forEach(data=>{
+                  // for(let i=0;i<this.fieldTypeObj.length;i++){
+                  //   if(this.fieldTypeObj[i].displayName==data.fieldType) ftype=this.fieldTypeObj[i].displayName;
+                  // }
+
                   let obj:any={
                     field_id:data.fieldId,
                     field_label:data.fieldLabel,
                     field_sequence:"",
-                    field_type:data.fieldType
+                    id:data.id,
+                    field_type:this.getfieldType(data.fieldType)
                   }
                   this.ELEMENT_DATA.push(obj);
                 });
@@ -173,6 +185,14 @@ export class DocumentFormComponent implements OnInit {
       }
 
     )
+  }
+  getfieldType(data){
+    console.log("data");
+    console.log(this.fieldTypeObj);
+  for(let i=0;i<this.fieldTypeObj.length;i++){
+    if(data==this.fieldTypeObj[i].lookupKey)
+    return this.fieldTypeObj[i].displayName;
+  }
   }
   goback(){
     this.router.navigate(["/document-type-listing"]);
@@ -188,7 +208,7 @@ export interface Doc_data {
   action?: any;
 }
 export class field {
-  id?: string;
+  id?: number;
   fieldLabel: string;
   fieldType: string;
   fieldId: string;

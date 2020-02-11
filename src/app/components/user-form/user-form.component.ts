@@ -24,6 +24,7 @@ export class UserFormComponent implements OnInit {
  action:boolean;
  userId:number;
  view :boolean;
+ editFieldType:string;
  constructor(private formBuilder: FormBuilder,
   private service:DataServiceService,
   private route:ActivatedRoute,
@@ -165,6 +166,7 @@ export class UserFormComponent implements OnInit {
             this.formGroup.controls['user_name'].setValue(m.username);
             this.formGroup.controls['first_name'].setValue(m.firstName);
             this.formGroup.controls['last_name'].setValue(m.lastName);
+            this.editFieldType=m.roleName;
         });
       }
     )

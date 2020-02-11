@@ -1,7 +1,7 @@
 <!-- form card register -->
 <div class="card card-outline-secondary">
   <div class="card-header">
-      <h3 class="mb-0">Create User Form</h3>
+      <h3 class="mb-0">Create User</h3>
   </div>
   <div class="card-body">
       <form class="form" role="form" [formGroup]="formGroup" (ngSubmit)="onSubmit()" autocomplete="off">
@@ -95,7 +95,7 @@
   <div class="form-group">
     <label>Role</label>
     <input type="hidden" formControlName="user_role"/>
-    <app-combo-box  [view]="view" [list]="role" (messageToEmit)="getMessage($event)" ></app-combo-box>
+    <app-combo-box [editFieldType]="editFieldType" [view]="view" [list]="role" (messageToEmit)="getMessage($event)" ></app-combo-box>
 
   </div>
   </div>

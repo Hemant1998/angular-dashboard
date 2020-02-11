@@ -68,4 +68,16 @@ export class DataServiceService {
   updateDocTypeById(obj:Object): Observable<any> {
     return this.http.put<any>(this.api_url+"/documentType", obj);
   }
+  getDocTemplateById(id:number):Observable<any> {
+    return this.http.get(this.api_url + '/documentTemplate/'+id);
+  }
+  getDocumentTypes():Observable<any>{
+    return this.http.get(this.api_url + '/documentTypes/');
+  }
+  saveDocumentTemplate(obj:Object): Observable<any> {
+    return this.http.post<any>(this.api_url+"/documentTemplate", obj);
+  }
+  updateDocTemplById(obj:Object): Observable<any> {
+    return this.http.put<any>(this.api_url+"/documentTemplate", obj);
+  }
 }

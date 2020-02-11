@@ -39,6 +39,7 @@ import { TemplateListingComponent } from './components/document-template/templat
 import { TemplateFormComponent } from './components/document-template/template-form/template-form.component';
 import { TemplateFormDialogComponent } from './components/document-template/template-form-dialog/template-form-dialog.component';
 import { ComboBoxComponent } from './components/combo-box/combo-box.component';
+import { DocumentsComponent } from './components/documents/documents.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,7 +57,8 @@ import { ComboBoxComponent } from './components/combo-box/combo-box.component';
     TemplateListingComponent,
     TemplateFormComponent,
     TemplateFormDialogComponent,
-    ComboBoxComponent
+    ComboBoxComponent,
+    DocumentsComponent
   ],
   imports: [
     BrowserModule,

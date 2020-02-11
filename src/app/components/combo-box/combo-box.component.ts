@@ -8,7 +8,7 @@ import { Component, OnInit, Input, EventEmitter, Output } from "@angular/core";
 export class ComboBoxComponent implements OnInit {
   @Input() list: string[];
   @Input() view:boolean;
-  @Input() editFieldType:string;
+  @Input() editFieldType;
   @Output() messageToEmit = new EventEmitter<string>();
   // two way binding for input text
   inputItem = "";
@@ -23,10 +23,17 @@ export class ComboBoxComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    this.inputItem=this.editFieldType;
-    this.filteredList = this.list;
-  }
 
+
+    this.filteredList = this.list;
+    ;
+
+  }
+  ngOnChanges(): void {
+    console.log("oinsdie");
+    console.log(this.inputItem)
+    this.inputItem=this.editFieldType;
+  }
   // modifies the filtered list as per input
   getFilteredList() {
     this.listHidden = false;

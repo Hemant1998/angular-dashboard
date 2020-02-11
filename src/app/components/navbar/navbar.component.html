@@ -29,8 +29,10 @@
 
         <mat-tree-node class="treenode" *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
           <button *ngIf="!node.active; else elseblock" mat-icon-button>
+            <a mat-icon-button routerLink="{{ node.navigate_url }}" routerLinkActive="active">
             <mat-icon style="padding-right:10px;">{{ node.icon }}</mat-icon>
             <span [@animateText]="linkText ? 'show' : 'hide'"> </span>{{ node.name }}
+            </a>
           </button>
           <ng-template #elseblock>
             <button class="btn" mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.name">

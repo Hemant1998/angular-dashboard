@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material';
 import { DataServiceService } from 'src/app/services/data-service.service';
 import { TemplateFormDialogComponent } from '../template-form-dialog/template-form-dialog.component';
 import {map, startWith} from 'rxjs/operators';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 @Component({
   selector: 'app-template-form',
   templateUrl: './template-form.component.html',
@@ -18,43 +19,93 @@ export class TemplateFormComponent implements OnInit {
   post: any = '';
   doc_type_list: string[]=['Invoice','Purchase Order']
   displayedColumns: string[] = ['field_id', 'field_label', 'field_sequence', 'field_type','action'];
-  displayedColumns_dtype: string[] = ['field_id', 'field_label', 'field_sequence', 'field_type'];
+  displayedColumns_dtype: string[] = ['fieldId', 'fieldLabel', 'field_sequence', 'fieldType'];
   ELEMENT_DATA: Doc_data[] = [
-
   ];
   dataSource = new BehaviorSubject([]);
   dataSource_dtype = new BehaviorSubject([]);
   flag:Boolean;
   id:number;
+  documentTypeList:any[]=[];
+  documentTypeListValue:string[]=[];
+  editFieldType:string;
+  fieldTypeObj:any[]=[];
+  table1Data:any[]=[];
+  doctypeId;
+  edit;
+  editId;
+  view;
   //dataSource = this.ELEMENT_DATA;
 
   filteredOptions: Observable<string[]>;
-  constructor(private formBuilder: FormBuilder,public dialog: MatDialog, private dataService:DataServiceService) { }
+  receivedChildMessage: string;
+  constructor(private formBuilder: FormBuilder,public dialog: MatDialog,
+     private dataService:DataServiceService,
+     private route:ActivatedRoute,
+     private router:Router) {
+      this.route.queryParams.subscribe(
+        (params: ParamMap) => {
+          //  this.dataService.getDocTemplateById(params['columnValue']).subscribe(res=>{
+          //   this.editFieldType=res.documentTypeName;
+          // })
+          this.dataService.getDocTemplateById(params['columnValue']).toPromise().then(data => {
+            this.editFieldType=data.documentTypeName;
+            console.log("data");
+          });
+        })
+      this.dataService.getFieldTypes().subscribe(res=>{
+        this.fieldTypeObj=res;
+      })
+     }
 
   ngOnInit() {
-
     this.createForm();
-    this.filteredOptions = this.formGroup.get('doc_type_dropdown').valueChanges
-    .pipe(
-      startWith(''),
-      map(value => this._filter(value))
-    );
+    this.getQueryParam();
   }
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
 
-    return this.doc_type_list.filter(option => option.toLowerCase().includes(filterValue));
-  }
 
   createForm() {
     this.formGroup = this.formBuilder.group({
       'doc_templ': [null, Validators.required],
       'discription': [null, Validators.required],
-      'doc_type_dropdown':[null, Validators.required],
-
+      'doc_type_dropdown':'',
+      'documentTemplateCode':[null, Validators.required],
     });
-  }
+    this.dataService.getDocumentTypes().subscribe(res=>{
+        this.documentTypeList=res;
+       for(let i=0;i<this.documentTypeList.length;i++){
+          this.documentTypeListValue.push(this.documentTypeList[i].documentTypeName);
+       }
+    })
 
+
+  }
+  getMessage(message: string) {
+    this.receivedChildMessage = message;
+    this.doctypeId= this.findItem(this.documentTypeList,this.receivedChildMessage)[0].id;
+    this.getdoctypeTable(this.doctypeId);
+    console.log("inside getmessage");
+    console.log(this.dataSource_dtype);
+
+  }
+  getdoctypeTable(doctid){
+    this.dataService.getDocTypeById(doctid).subscribe(res=>{
+      console.log("filedty");
+      console.log(res.fields);
+        this.table1Data=[];
+      for(let i=0;i<res.fields.length;i++){
+      let obj:any={
+        fieldId:res.fields[i].fieldId,
+        fieldLabel:res.fields[i].fieldLabel,
+        field_sequence:"",
+        fieldType:this.getfieldType(res.fields[i].fieldType)
+      }
+      this.table1Data.push(obj);
+    }
+    console.log(this.table1Data);
+      this.dataSource_dtype.next(this.table1Data);
+    })
+  }
   opendialog(element){
    // this.sendData();
    if(this.ELEMENT_DATA.length==0)
@@ -97,10 +148,102 @@ export class TemplateFormComponent implements OnInit {
     })
 
       this.dataSource.next(this.ELEMENT_DATA);
+  }
+  onSubmit(){
+    let objArr: field[] = [];
+    let fieldType;
+
+    this.ELEMENT_DATA.forEach((value, i) => {
+
+      let objdata:field={
+        fieldLabel:value.field_label,
+        fieldType:this.getfieldLookupType(value.field_type),
+        fieldId:value.field_id,
+        id:value.id
+     }
+      objArr.push(objdata);
+    });
+    //let doctypeId=this.documentTypeList[this.documentTypeList.indexOf(this.receivedChildMessage)].id
 
 
+    let obj: any = {
+      documentTemplateName:this.formGroup.controls['doc_templ'].value,
+      documentTypeId:this.doctypeId,
+      description:this.formGroup.controls['discription'].value,
+      documentTemplateCode:this.formGroup.controls['documentTemplateCode'].value,
+      templateFields:objArr
+    };
+      console.log(obj);
+    if(this.edit){
+      obj.id=this.editId;
+      this.dataService.updateDocTemplById(obj).subscribe(res=>{
+          alert("Document Type Updated!");
+      })
+    }
+    else{
+    this.dataService.saveDocumentTemplate(obj).subscribe(res=>{
+        alert("Document Template Saved!");
+    })
+   }
+  }
+  getQueryParam(){
+    let objArr:Doc_data[]=[];
+    this.route.queryParams.subscribe(
+      (params: ParamMap) => {
+        if(params['columnName']=='edit') {
+          this.edit=true;
+          this.editId=params['columnValue'];
+        }
+        if(params['columnName']=='view'){
+          this.view=true;
+          this.formGroup.controls['doc_templ'].disable();
+          this.formGroup.controls['discription'].disable();
+          this.formGroup.controls['documentTemplateCode'].disable();
+        }
+       this.dataService.getDocTemplateById(params['columnValue']).subscribe(res=>{
+        this.formGroup.controls['doc_templ'].setValue(res.documentTemplateName);
+        this.formGroup.controls['discription'].setValue(res.description);
+        this.formGroup.controls['doc_type_dropdown'].setValue(res.documentTypeName);
+        this.formGroup.controls['documentTemplateCode'].setValue(res.documentTemplateCode);
+        this.editFieldType=res.documentTypeName;
+        this.getdoctypeTable(res.documentTypeId);
+        res.templateFields.forEach(data=>{
+
+          let obj:any={
+            field_id:data.fieldId,
+            field_label:data.fieldLabel,
+            field_sequence:"",
+            id:data.id,
+            field_type:this.getfieldType(data.fieldType)
+          }
+          this.ELEMENT_DATA.push(obj);
+        });
+        this.dataSource.next(this.ELEMENT_DATA);
+       })
+      }
+
+    )
+  }
+  getfieldType(data){
+  for(let i=0;i<this.fieldTypeObj.length;i++){
+    if(data==this.fieldTypeObj[i].lookupKey)
+    return this.fieldTypeObj[i].displayName;
   }
 
+  }
+  getfieldLookupType(data){
+  for(let i=0;i<this.fieldTypeObj.length;i++){
+    if(data==this.fieldTypeObj[i].displayName)
+    return this.fieldTypeObj[i].lookupKey;
+  }
+}
+  findItem(arr,val)
+  {
+      return arr.filter(m=>m.documentTypeName===val)
+  }
+  goBack(){
+    this.router.navigate(["/document-template-listing"]);
+  }
 }
 
 export interface Doc_data {
@@ -110,4 +253,10 @@ export interface Doc_data {
   field_sequence: number;
   field_type: string;
   action:any;
+}
+export class field {
+  id?: number;
+  fieldLabel: string;
+  fieldType: string;
+  fieldId: string;
 }

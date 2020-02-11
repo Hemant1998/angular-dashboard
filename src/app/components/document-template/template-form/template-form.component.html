@@ -28,13 +28,20 @@
       </div>
 
       <div class="row">
-        <div class="col">
+        <!-- <div class="col">
         <div class="form-group">
           <label for="inputName">Document Type</label>
           <input type="text" class="form-control" formControlName="doc_type_dropdown" placeholder="Document Type">
           <span *ngIf="!formGroup.controls['doc_type_dropdown'].valid && formGroup.controls['doc_type_dropdown'].touched">
             Field is required
           </span>
+      </div>
+    </div> -->
+    <div class="col">
+      <div class="form-group">
+        <label>Field Type</label>
+        <input type="hidden" formControlName="doc_type_dropdown"/>
+        <app-combo-box [editFieldType]="editFieldType" [list]="documentTypeListValue" (messageToEmit)="getMessage($event)" ></app-combo-box>
       </div>
     </div>
       <div class="col">
@@ -47,22 +54,34 @@
       </div>
 
       </div>
-      <div >
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" >
+      <div class="row tbl-cls">
+
+        <div class="col">
+          <div class="form-group">
+            <label for="inputName">Document Template Code</label>
+            <input type="text" class="form-control" formControlName="documentTemplateCode" placeholder="Document Template Code">
+            <span *ngIf="!formGroup.controls['documentTemplateCode'].valid && formGroup.controls['documentTemplateCode'].touched">
+              Field is required
+            </span>
+        </div>
+        </div>
+        </div>
+      <div class="tbl-cls">
+        <table mat-table [dataSource]="dataSource_dtype" class="mat-elevation-z8" >
 
           <!--- Note that these columns can be defined in any order.
                 The actual rendered columns are set as a property on the row definition" -->
 
           <!-- Position Column -->
-          <ng-container matColumnDef="field_id">
+          <ng-container matColumnDef="fieldId">
             <th mat-header-cell *matHeaderCellDef> Field Id </th>
-            <td mat-cell *matCellDef="let element"> {{element.field_id}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.fieldId}} </td>
           </ng-container>
 
           <!-- Name Column -->
-          <ng-container matColumnDef="field_label">
+          <ng-container matColumnDef="fieldLabel">
             <th mat-header-cell *matHeaderCellDef> Field Label </th>
-            <td mat-cell *matCellDef="let element"> {{element.field_label}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.fieldLabel}} </td>
           </ng-container>
 
           <!-- Weight Column -->
@@ -72,31 +91,19 @@
           </ng-container>
 
           <!-- Symbol Column -->
-          <ng-container matColumnDef="field_type">
+          <ng-container matColumnDef="fieldType">
             <th mat-header-cell *matHeaderCellDef> Field Type </th>
-            <td mat-cell *matCellDef="let element"> {{element.field_type}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.fieldType}} </td>
           </ng-container>
 
-          <ng-container matColumnDef="action">
-            <th mat-header-cell *matHeaderCellDef> Action</th>
-            <td mat-cell *matCellDef="let element">
-              <button mat-icon-button >
-                <mat-icon (click)="opendialog(element)">edit</mat-icon>
-              </button>
-              <button mat-icon-button (click)="deleteElement(element.field_id)">
-                <mat-icon>delete</mat-icon>
-              </button>
-            </td>
-          </ng-container>
-
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns_dtype"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns_dtype;"></tr>
         </table>
       </div>
 
       <div class="row row-cls">
         <div class="col-md-12">
-        <button type="submit" class="btn btn-success float-right" (click)="opendialog(null)">Add Field</button>
+        <button type="submit" [hidden]="view" class="btn btn-success float-right" (click)="opendialog(null)">Add Field</button>
       </div>
     </div>
 
@@ -130,12 +137,12 @@
           </ng-container>
 
           <ng-container matColumnDef="action">
-            <th mat-header-cell *matHeaderCellDef> Action</th>
+            <th mat-header-cell *matHeaderCellDef> <p *ngIf="!view">Action</p></th>
             <td mat-cell *matCellDef="let element">
-              <button mat-icon-button >
+              <button mat-icon-button *ngIf="!view">
                 <mat-icon (click)="opendialog(element)">edit</mat-icon>
               </button>
-              <button mat-icon-button (click)="deleteElement(element.field_id)">
+              <button mat-icon-button (click)="deleteElement(element.field_id)" *ngIf="!view">
                 <mat-icon>delete</mat-icon>
               </button>
             </td>
@@ -149,12 +156,12 @@
       <div class="row row-cls">
         <div class="col-md-6">
           <div class="form-group">
-              <button type="submit" class="btn btn-success  float-right" >Save</button>
+              <button type="submit" [hidden]="view" class="btn btn-success  float-right" (click)="onSubmit()" > Save</button>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
-            <button type="submit" class="btn btn-success float-left">Cancel</button>
+            <button type="submit" class="btn btn-success float-left" (click)="goBack()">Cancel</button>
         </div>
         </div>
       </div>
