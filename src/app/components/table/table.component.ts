@@ -13,7 +13,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { Router } from '@angular/router';
 import { DataServiceService } from 'src/app/services/data-service.service';
 import { createInjectable } from '@angular/compiler/src/core';
-var tableData;
+declare var $: any;
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
@@ -36,8 +36,7 @@ export class TableComponent  {
     isLoadingResults = true;
     isRateLimitReached = false;
     url: string;
-
-    filterString:string="";
+   filterString:string="";
 
     @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
     @ViewChild(MatSort, { static: false }) sort: MatSort;
@@ -56,7 +55,6 @@ export class TableComponent  {
 
     }
     ngOnInit(): void {
-
       this.headerColumns.forEach(el => {
         if (el.active) {
           this.value.push(el.displayName);
@@ -112,7 +110,8 @@ export class TableComponent  {
           this.isRateLimitReached = true;
           return observableOf([]);
         })
-      ).subscribe(data => this.dataSource = data);
+      ).subscribe(data => {this.dataSource = data
+      });
     }
     selection = new SelectionModel<GithubIssue>(true, []);
 
@@ -149,6 +148,15 @@ export class TableComponent  {
       });
 
 
+    }
+    action(id){
+    // $("#headerow").trigger();
+      $("#"+id+"b1").css("display","inline");
+      $("#"+id+"b2").css("display","inline");
+    }
+    actionfade(id){
+      $("#"+id+"b1").css("display","none");
+      $("#"+id+"b2").css("display","none");
     }
     addColumn(event: Event) {/*  */
       this.displayedColumns = [];

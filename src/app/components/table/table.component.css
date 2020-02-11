@@ -214,3 +214,9 @@ tr.mat-header-row {
   width: 200px;
   outline: -webkit-focus-ring-color auto 0px;
 }
+.cls-row:hover{
+  background-color:rgb(240, 227, 227);
+}
+ .cls-action{
+  display: none;
+}
