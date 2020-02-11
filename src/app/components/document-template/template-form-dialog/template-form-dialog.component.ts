@@ -38,9 +38,10 @@ export class TemplateFormDialogComponent implements OnInit {
     })
 
    this.createForm();
-    if(this.data['content_with_id']!=null)
+    if(this.data['content_with_id']!=null){
+      this.editFieldType=this.data['content_with_id'].field_type;
     this.getData();
-    // this.formGroup.controls['field_id'].setValue(this.data['content'].field_id);
+    }
   }
   getMessage(message: string) {
     this.receivedChildMessage = message;
@@ -56,8 +57,10 @@ export class TemplateFormDialogComponent implements OnInit {
   }
   dialogsubmit()
   {
-    console.log("inside dialogsubmit");
-    this.formGroup.controls['field_type'].setValue(this.receivedChildMessage);
+    this.receivedChildMessage!=" "?
+    this.formGroup.controls['field_type'].setValue(this.receivedChildMessage):
+    this.formGroup.controls['field_type'].setValue(this.formGroup.controls['field_type'].value);
+
   }
 getData(){
  this.formGroup.controls['field_id'].setValue(this.data['content_with_id'].field_id);

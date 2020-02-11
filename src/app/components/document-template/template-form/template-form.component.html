@@ -41,7 +41,7 @@
       <div class="form-group">
         <label>Field Type</label>
         <input type="hidden" formControlName="doc_type_dropdown"/>
-        <app-combo-box [editFieldType]="editFieldType" [list]="documentTypeListValue" (messageToEmit)="getMessage($event)" ></app-combo-box>
+        <app-combo-box [editFieldType]="editFieldType" [view]="view" [list]="documentTypeListValue" (messageToEmit)="getMessage($event)" ></app-combo-box>
       </div>
     </div>
       <div class="col">

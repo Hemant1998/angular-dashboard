@@ -58,9 +58,10 @@ export class DocumentFormDialogComponent implements OnInit {
   }
   dialogsubmit()
   {
-    console.log("inside dialogsubmit");
-    this.formGroup.controls['field_type'].setValue(this.receivedChildMessage);
-    console.log(this.receivedChildMessage);
+
+    this.receivedChildMessage!=" "?
+    this.formGroup.controls['field_type'].setValue(this.receivedChildMessage):
+    this.formGroup.controls['field_type'].setValue(this.formGroup.controls['field_type'].value);
 
   }
 getData(){

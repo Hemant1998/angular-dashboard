@@ -159,6 +159,7 @@ export class DocumentFormComponent implements OnInit {
           this.view=true;
           this.formGroup.controls['doc_type'].disable();
           this.formGroup.controls['discription'].disable();
+          this.formGroup.controls['documentTypeCode'].disable();
         }
             this.dataService.getDocTypeById(params['columnValue']).subscribe(res=>{
                 console.log(res);

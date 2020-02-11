@@ -199,6 +199,7 @@ export class TemplateFormComponent implements OnInit {
           this.formGroup.controls['doc_templ'].disable();
           this.formGroup.controls['discription'].disable();
           this.formGroup.controls['documentTemplateCode'].disable();
+          this.formGroup.controls['doc_type_dropdown'].disable();
         }
        this.dataService.getDocTemplateById(params['columnValue']).subscribe(res=>{
         this.formGroup.controls['doc_templ'].setValue(res.documentTemplateName);

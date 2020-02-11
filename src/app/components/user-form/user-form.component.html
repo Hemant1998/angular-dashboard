@@ -22,8 +22,8 @@
         <div class="row">
           <div class="col">
           <div class="form-group">
-            <label for="inputName">Password</label>
-            <input type="text" class="form-control" formControlName="password" placeholder="password">
+            <label for="inputName" [hidden]="view">Password</label>
+            <input type="password" [hidden]="view" class="form-control" formControlName="password" placeholder="password">
             <span *ngIf="!formGroup.controls['password'].valid && formGroup.controls['password'].touched">
               {{ getErrorPassword() }}
             </span>
@@ -34,7 +34,7 @@
       <div class="col">
         <div class="form-group">
           <label for="inputName" [hidden]="view">Re-Password</label>
-          <input type="text" class="form-control" [hidden]="view" formControlName="re_password" placeholder="Re-Password">
+          <input type="password" class="form-control" [hidden]="view" formControlName="re_password" placeholder="Re-Password">
         </div>
       </div>
       </div>
