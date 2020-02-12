@@ -10,7 +10,7 @@ import { DocumentFormComponent } from './components/document-type/document-form/
 import { DocumentTypeListingComponent } from './components/document-type/document-type-listing/document-type-listing.component';
 import { TemplateFormComponent } from './components/document-template/template-form/template-form.component';
 import { TemplateListingComponent } from './components/document-template/template-listing/template-listing.component';
-import { DocumentsComponent } from './components/documents/documents.component';
+import { DocumentsComponent } from './components/documents/document-listing/documents.component';
 // import { AdminComponent } from './components/admin/admin.component';
 
 const routes: Routes = [

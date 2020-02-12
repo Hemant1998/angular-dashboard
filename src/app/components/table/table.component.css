@@ -116,7 +116,7 @@ tr.example-detail-row {
 }
 
 tr.mat-row {
-  height: 35px;
+  height: 40px;
   border-bottom: 1px solid #f1eaea;
 }
 
@@ -141,7 +141,7 @@ tr.mat-row {
 }
 
 table tr th{
-  background: #5d59591f;
+  background: rgb(100, 98, 102);
 
     font-size: 12px;
     text-transform: capitalize;
@@ -156,7 +156,7 @@ table tr th{
   line-height: 1.42857143;
   vertical-align: top;
   border-top: 1px solid #ddd;
-  font-size: 15px !important;
+  font-size: 16px !important;
   color: #22262e;
 }
 .mat-cell {
@@ -215,8 +215,12 @@ tr.mat-header-row {
   outline: -webkit-focus-ring-color auto 0px;
 }
 .cls-row:hover{
-  background-color:rgb(240, 227, 227);
+  background-color:rgb(240, 240, 240);
 }
  .cls-action{
   display: none;
+}
+ p{
+  font-size: 17px;
+  color:White;
 }
