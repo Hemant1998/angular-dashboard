@@ -11,6 +11,7 @@ import { DocumentTypeListingComponent } from './components/document-type/documen
 import { TemplateFormComponent } from './components/document-template/template-form/template-form.component';
 import { TemplateListingComponent } from './components/document-template/template-listing/template-listing.component';
 import { DocumentsComponent } from './components/documents/document-listing/documents.component';
+import { DocumentsFormComponent } from './components/documents/documents-form/documents-form.component';
 // import { AdminComponent } from './components/admin/admin.component';
 
 const routes: Routes = [
@@ -25,6 +26,7 @@ const routes: Routes = [
    ,{path : 'document-template-form',component: TemplateFormComponent, canActivate: [AuthguardServiceService]}
    ,{path : 'document-template-listing',component: TemplateListingComponent, canActivate: [AuthguardServiceService]}
    ,{path : 'document-listing',component: DocumentsComponent, canActivate: [AuthguardServiceService]}
+   ,{path : 'documents-form',component: DocumentsFormComponent, canActivate: [AuthguardServiceService]}
 
    //{ path: 'register', component: RegisterComponent }
 ];

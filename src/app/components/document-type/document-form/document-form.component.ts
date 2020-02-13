@@ -137,13 +137,14 @@ export class DocumentFormComponent implements OnInit {
     if(this.edit){
       obj.id=this.editId;
       this.dataService.updateDocTypeById(obj).subscribe(res=>{
-          alert("Document Type Updated!");
+        if(res.responseCode=="00")
+          this.router.navigate(['/document-type-listing']);
       })
     }
     else{
     this.dataService.saveDocumentType(obj).subscribe(res=>{
-        console.log(res);
-        alert("Document Type Saved!");
+      if(res.responseCode=="00")
+          this.router.navigate(['/document-type-listing']);
     })
   }
   }

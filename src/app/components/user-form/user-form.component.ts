@@ -129,13 +129,15 @@ export class UserFormComponent implements OnInit {
    this.userobj.roleName=this.formGroup.get('user_role').value;
    if(this.action){
       this.userobj.id=this.userId;
-      this.service.updateUser(this.userobj).subscribe(m=>{
-       alert("User Updated!");
+      this.service.updateUser(this.userobj).subscribe(res=>{
+        if(res.responseCode=="00")
+           this.router.navigate(['/admin']);
       });
    }
       else{
-       this.service.saveUser(this.userobj).subscribe(m=>{
-     alert("User Saved!");
+       this.service.saveUser(this.userobj).subscribe(res=>{
+        if(res.responseCode=="00")
+        this.router.navigate(['/admin']);
    });
   }
   }

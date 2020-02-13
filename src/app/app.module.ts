@@ -40,6 +40,7 @@ import { TemplateFormComponent } from './components/document-template/template-f
 import { TemplateFormDialogComponent } from './components/document-template/template-form-dialog/template-form-dialog.component';
 import { ComboBoxComponent } from './components/combo-box/combo-box.component';
 import { DocumentsComponent } from './components/documents/document-listing/documents.component';
+import { DocumentsFormComponent } from './components/documents/documents-form/documents-form.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,7 +59,8 @@ import { DocumentsComponent } from './components/documents/document-listing/docu
     TemplateFormComponent,
     TemplateFormDialogComponent,
     ComboBoxComponent,
-    DocumentsComponent
+    DocumentsComponent,
+    DocumentsFormComponent
   ],
   imports: [
     BrowserModule,

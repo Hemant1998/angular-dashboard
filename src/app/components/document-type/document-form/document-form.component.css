@@ -34,7 +34,7 @@
 }
 
 table {
-  width: 90%;
+  width: 100%;
 }
 
 .form-addfield {
@@ -63,4 +63,16 @@ span {
   color: red;
   font-size: 10px;
   position: absolute;
+}
+.cls-h{
+    padding: 0.3rem 0.75rem;
+}
+.cls-c{
+  width: 731px;
+}
+tr.mat-header-row {
+  height: 40px;
+}
+tr.mat-footer-row, tr.mat-row {
+  height: 40px;
 }

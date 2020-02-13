@@ -177,12 +177,14 @@ export class TemplateFormComponent implements OnInit {
     if(this.edit){
       obj.id=this.editId;
       this.dataService.updateDocTemplById(obj).subscribe(res=>{
-          alert("Document Type Updated!");
+        if(res.responseCode=="00")
+        this.router.navigate(['/document-template-listing']);
       })
     }
     else{
     this.dataService.saveDocumentTemplate(obj).subscribe(res=>{
-        alert("Document Template Saved!");
+      if(res.responseCode=="00")
+      this.router.navigate(['/document-template-listing']);
     })
    }
   }

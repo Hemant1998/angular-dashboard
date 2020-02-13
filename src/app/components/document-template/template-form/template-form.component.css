@@ -83,6 +83,29 @@
 .row-cls{
   margin-top: 20px;
 }
+.row-cls1{
+  margin-top: 20px;
+  margin-left: 381px;
+}
 .tbl-cls{
   margin-top: 40px;
+}
+.cls-h{
+  padding: 0.3rem 0.75rem;
+}
+.cls-c{
+  margin-top: 40px;
+width: 731px;
+}
+.cls-c1{
+width: 731px;
+}
+tr.mat-header-row {
+height: 40px;
+}
+tr.mat-footer-row, tr.mat-row {
+height: 40px;
+}
+.dtn-cls{
+  max-width: 90%;
 }

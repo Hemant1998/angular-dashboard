@@ -10,7 +10,7 @@ import { DataServiceService } from "src/app/services/data-service.service";
 export class DocumentsComponent implements OnInit {
 
   constructor(private service: DataServiceService, private router: Router) {
-    this.grid_url = "http://localhost:8080/user";
+    this.grid_url = "http://localhost:8081/documents";
   }
   grid_url: string = " ";
   delete_url: string = "user";
@@ -57,13 +57,13 @@ export class DocumentsComponent implements OnInit {
       hyperlink: false,
       action: false
     },
-    // {
-    //   columnName: "id",
-    //   displayName: "Action",
-    //   active: true,
-    //   hyperlink: false,
-    //   action: false
-    // }
+    {
+      columnName: "id",
+      displayName: "Action",
+      active: true,
+      hyperlink: false,
+      action: true
+    }
     // , { 'columnName': 'id', 'displayName': 'Action', "active": true, "hyperlink": false, "action": true }
   ];
   ngOnInit() { }
