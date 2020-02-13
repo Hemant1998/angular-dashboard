@@ -82,6 +82,7 @@
 
 .row-cls{
   margin-top: 20px;
+
 }
 .row-cls1{
   margin-top: 20px;
@@ -93,12 +94,13 @@
 .cls-h{
   padding: 0.3rem 0.75rem;
 }
+
 .cls-c{
   margin-top: 40px;
-width: 731px;
+  max-width: 731px;
 }
 .cls-c1{
-width: 731px;
+  max-width: 731px;
 }
 tr.mat-header-row {
 height: 40px;
